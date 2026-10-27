@@ -212,7 +212,7 @@ flowchart LR
 **Plus for the appendix:** W9 profit by outlet · W10 evidence log · W11 plan and monthly receipt · F1 cashier view · F2 Soundbox shift close.
 **Design rule:** English UI copy for the pitch; voice lines in Hindi; no Paytm logo drawn, official assets dropped in later.
 
-*Gaps to close before building screens:* the voice expense-logging screen, a cost-rules entry screen and the "change assumption" screen are not wireframed yet.
+*Also designed (appendix candidates):* **W17b, voice expense logging** (the owner or cashier says "chai 400, auto 250", the Munim lists what it heard, asks only what is unclear, and updates the shift check's expected cash) and **W18a, cost rules** (the Munim finds recurring payments in bank data and the owner confirms rent, salaries and shared costs per outlet). Full wireframes and options considered: `AI_Munim_Project_Plan.md`, Part 6 (6.7 and 6.8). *Still not wireframed:* the "change assumption" screen.
 
 ---
 
@@ -434,7 +434,7 @@ Findings come from public search results, several dated or from third parties. *
 | 3 | Confirm the credential line wording | Slide 1 |
 | 4 | Confirm partner and tool names before naming them (voice, workflow, memory tools) | Event partner list needs portal confirmation |
 | 5 | Re-read slide 11 and 12 aloud: attrition, referrals and fixed costs are called out | A judge who finds them first will discount the rest |
-| 6 | Wireframe gaps: voice expense logging, cost-rules entry, assumption editing | Slide 9 note |
+| 6 | Wireframe gap: assumption editing ("Change this" on the cash plan). Voice expense logging and cost rules are now wireframed; four open decisions are in the plan, 6.9 | Slide 9 note |
 | 7 | Verify the Appendix 1b competitor findings in each live app | Several sources were dated or third-party |
 | 8 | Check every figure against the Summary sheet of `AI_Munim_Projection.xlsx` | The Excel is the source of truth for numbers |
 
