@@ -3,7 +3,7 @@
 **Paytm Build for India AI Hackathon, Mumbai Edition · Track 1: Merchant Growth AI · Kamalika Poddar**
 Document date: 27 Oct 2026 · Status: working draft for the team
 
-> **How this file relates to the rest of the repo.** Every number below comes from `AI_Munim_Projection.xlsx` (v2, Summary sheet), `Restock_Care_Projection.xlsx` and `Mohalla_GMV_Projection.xlsx`, or from the three `*_Deck_Content.md` files. Where I (the author of this file) have added something that is **not** in those files (the project-plan dates, team sizes and a few derived splits), it is marked **[plan assumption]** or **[derived]** so you can tell it apart from the model. Product names (*AI Munim*, *Intent Guard*, *Restock Agent*, *Soundbox Care*, *Mohalla*) are working names. All merchant names, outlets and rupee figures in the screens are illustrative.
+> **How this file relates to the rest of the repo.** Every number below comes from `AI_Munim_Projection.xlsx` (v2, Summary sheet), `Restock_Care_Projection.xlsx` and `Mohalla_GMV_Projection.xlsx`, or from the three `*_Deck_Content.md` files. Where I (the author of this file) have added something that is **not** in those files (the project-plan dates, team sizes and a few derived splits), it is marked **[plan assumption]** or **[derived]** so you can tell it apart from the model. Product names (*AI Munim*, *Intent Guard*, *Restock Agent*, *Device Care*, *Mohalla*) are working names. All merchant names, outlets and rupee figures in the screens are illustrative.
 
 ---
 
@@ -15,7 +15,7 @@ Paytm's merchant business has a **contribution problem, not a volume problem**. 
 
 ## 2. The three features we assessed
 
-| | **A · AI Munim** (with Intent Guard) | **B · Restock Agent + Soundbox Care** | **C · Mohalla** (with Intent Guard) |
+| | **A · AI Munim** (with Intent Guard) | **B · Restock Agent + Device Care** | **C · Mohalla** (with Intent Guard) |
 |---|---|---|---|
 | **One line** | An AI "munim" (accountant) in the Paytm for Business app that tells a multi-outlet owner what each outlet earns, when cash will run short and what went missing at shift change, and moves money only inside the owner's mandate | An agent on the AI Soundbox that predicts stock-outs, takes the order by voice, pays the shop's own suppliers inside limits (or on credit), plus a Soundbox that detects and heals its own faults | An agent that finds nearby non-competing Paytm shops that share customers, runs reciprocal offers that pay out only on Paytm, and checks every reward payout against limits |
 | **Who it is for** | Owners of 2-5 outlets (hero); open to single shops and chains | Kirana / grocery shops with a Paytm AI Soundbox | Neighbouring shops in the same catchment |
@@ -25,7 +25,7 @@ Paytm's merchant business has a **contribution problem, not a volume problem**. 
 | **8-quarter new GMV (base)** | ₹2,382 crore | ₹32,799 crore (62% is supplier payments) | ₹7,568 crore |
 | **Contribution margin (base)** | **59%** of revenue | 58% of revenue **plus avoided costs** (Restock alone: 41%) | 60% of revenue |
 | **Q3 FY29 quarterly contribution vs Q1 FY27 EBITDA (₹203 cr)** | 9.7% | 13.3% | 4.0% **[derived]** |
-| **Effort to a production pilot** | ~18 person-months **[plan assumption]** | Restock 9 + Care 4 person-months | ~8 person-months + Intent Guard 4 |
+| **Effort to a production pilot** | ~10 person-months with AI-DLC **[plan assumption]** | Restock 9 + Care 4 person-months | ~8 person-months + Intent Guard 4 |
 | **Biggest dependency** | Account Aggregator data + lender partners | Suppliers joining city by city; Paytm sees rupees, not items | Consent from other apps' users; ₹34 cost to win a ₹300 bill |
 | **Decision** | **BUILD (hero)** | Restock → **roadmap, as a Munim skill (FY28)**; Care → device status lives in the Munim's outlet view; full Care programme is an operations decision for Paytm | **Dropped** (consent route and merchant economics fail) |
 
@@ -57,7 +57,7 @@ Paytm's merchant business has a **contribution problem, not a volume problem**. 
 |---|---|
 | **1** | AI Munim in detail: what it does, merchant benefit, how it grows the merchant, benefit to Paytm, how it moves the north star, business metrics and contribution margin, 8-quarter forecast, success metrics |
 | **2** | Why AI Munim over the other two: scorecard, risk-adjusted view, what would change our mind |
-| **3** | Project plan for all three features, with the detailed plan for the Munim |
+| **3** | Project plan on AI-DLC: how we build, intents and units, evals, human gates, phases and dates, AI-native product management, risks, cost; plus plans for the other two features |
 | **4** | Full assumptions register: Munim model, shared baseline, product rules, go-to-market, the other two models, external facts, plan assumptions, known tensions |
 | **5** | Product user flow for AI Munim |
 | **6** | Textual wireframes of every Munim screen |
@@ -250,7 +250,7 @@ Billed on its own line in the Business app (not bundled with the Soundbox), by U
 | **Contribution, 8 qtrs (₹ cr)** | **39.6** | **34.9** | **4.27** | **0.29** | **79.0** |
 | Share of contribution | 50% | 44% | 5% | 0.4% | 100% |
 
-**Important:** contribution here is **variable** contribution. It excludes fixed engineering, platform and field-force salary costs. It is not EBITDA. Before any investment decision, subtract the dedicated team and field cost (see 3.6 for an illustrative placeholder).
+**Important:** contribution here is **variable** contribution. It excludes fixed engineering, platform and field-force salary costs. It is not EBITDA. Before any investment decision, subtract the dedicated team and field cost (see 3.9 for an illustrative placeholder).
 
 ## 1.5 Forecast and projections: next 8 quarters
 
@@ -441,91 +441,210 @@ Scored on what Track 1 (Merchant Growth AI) asks for. ✓ yes · ◐ partly · �
 
 # PART 3 · Project plan
 
-Dates assume today is 27 Oct 2026 (Stage 1 pitch day) and that the pilot starts in **Q4 FY27 (Jan-Mar 2027)** as in the projection model. All team sizes, dates and costs below are **[plan assumptions]**; they are not in the workbooks.
+Dates assume today is 27 Oct 2026 (Stage 1 pitch day) and that the pilot starts in **Q4 FY27 (Jan-Mar 2027)** as in the projection model. **The plan is built on AI-DLC (AI-Driven Development Life Cycle), not sprint-based SDLC**: see 3.2. All team sizes, dates and costs below are **[plan assumptions]**; they are not in the workbooks.
 
 ## 3.1 Portfolio view: three features, one sequence
 
 | Feature | Decision | Q3 FY27 (Oct-Dec 26) | Q4 FY27 (Jan-Mar 27) | Q1-Q2 FY28 | Q3-Q4 FY28 | FY29 |
 |---|---|---|---|---|---|---|
-| **A · AI Munim + Intent Guard** | **Build now** | Finals; validate; build MVP | Closed beta → Mumbai pilot | Pilot gate (30 Jun 27); go national | Scale to 60% reach; CA dashboard; member perk | 85% reach; peer benchmarks |
+| **A · AI Munim + Intent Guard** | **Build now** | Finals; Inception; build in bolts (16 Nov - 8 Jan) | Closed beta (11 Jan) → Mumbai pilot (8 Feb) | Pilot gate (30 Jun 27); go national | Scale to 60% reach; CA dashboard; member perk | 85% reach; peer benchmarks |
 | **B1 · Restock Agent** | **Next, as a Munim skill** | Design only | Reuse bill-reading from Munim's expense parser | 20-shop supplier pilot (Mumbai) | City-by-city supplier onboarding; credit router | Agentic: supplier agents via Intent Guard |
-| **B2 · Soundbox Care** | **Operations call; Munim shows status** | Device status in outlet view (Foundation) | Spec with Paytm device ops | Decision on full programme | Firmware rollout if approved | n/a |
+| **B2 · Device Care** | **Operations call; Munim shows status** | Device status in outlet view (Foundation) | Spec with Paytm device ops | Decision on full programme | Firmware rollout if approved | n/a |
 | **C · Mohalla / Nearby** | **Dropped; watch-list** | n/a | n/a | Re-open only if consent route and cap enforcement change | n/a | n/a |
 
-## 3.2 AI Munim: phases and milestones
+## 3.2 How we build: AI-DLC instead of the sprint-based SDLC
+
+This plan uses the **AI-Driven Development Life Cycle (AI-DLC)**. AI drafts the plans, specs, code and tests; people set the intent and approve at defined gates. Work is cut into **intents → units → bolts** (hours to a few days) rather than two-week sprints, and runs through three phases: **Inception**, **Construction** and **Operations**. (If "AILDC" meant a different method, tell me and I'll re-cut this part.)
+
+### What changes against the earlier plan
+
+| Topic | Earlier (SDLC) plan | AI-DLC plan |
+|---|---|---|
+| Unit of planning | 6 two-week sprints | ~20 **bolts** of 2-3 days, each ending in a working, evaluated unit |
+| Requirements | PRD written by the PM, then handed off | **Intents** stated by the PM; AI proposes stories, units, risks and acceptance evals; the team validates together (**mob elaboration**) |
+| Hand-offs | PM → design → engineering → QA → compliance | PM, designer, engineers, compliance and a lender-partner rep in the same session; compliance reviews each bolt, not at the end |
+| "Done" | Code merged, QA sign-off | Unit passes its **eval suite** and the human gates below |
+| QA | A phase before beta | Continuous: evals and the 12-attack red-team suite run on every build |
+| Team to closed beta | ~10 people, ~18 person-months | One pod of ~5 (product owner, designer-engineer, 2 senior engineers, 1 applied-AI/eval engineer) ≈ **10 person-months** **[plan assumption; calibrate after bolt 3]** |
+| Build window | ~10 weeks (9 Nov - 15 Jan) | ~7.5 weeks of bolts (16 Nov - 8 Jan); the time saved becomes buffer and earlier real-data testing |
+| Documentation | Written after the fact | Generated and kept current as the working context for AI and people |
+| Operations | Support and monitoring staffed up later | AI-assisted from the first beta user: eval monitors, incident triage, support copilots |
+| What gates the pilot | Engineering throughput | **External clocks** (see 3.7): FIU access, lender contracts, legal, 12 weeks of history |
+
+**What AI-DLC does not change.** Regulatory sign-off, lender contracts, field-force training, 12 weeks of per-outlet history and owner trust take the same calendar time. So the pilot start stays in Jan 2027 as the projection model assumes; the speed-up buys safety margin, earlier feedback and better evals, not an earlier launch.
+
+**Human gates (nothing skips them)**
+
+| Gate | When | Who approves | Rule |
+|---|---|---|---|
+| G1 · Intent and spec | End of Inception, and for each new intent | Product owner + compliance | AI-generated stories, units and risks are reviewed line by line |
+| G2 · Design and threat model | Before a unit that touches money, consent or PII | Senior engineer + security | Money paths, Account Aggregator, Capital and Intent Guard get a written threat model |
+| G3 · Code review | Every bolt | A human engineer | **Mandatory human review on money paths and Intent Guard**; AI never merges these alone |
+| G4 · Evals | Every build | Automated, owner of the eval | Unit does not ship below its thresholds (3.4) |
+| G5 · Security and compliance | Before closed beta, before pilot, before national | Security + legal | RBI Digital Lending Directions, DPDP, consent artefacts, staff notice for shift checks |
+| G6 · Release | Each release | Product owner | Feature flags, staged rollout, rollback ready |
+
+**Data rule for AI tools.** Coding assistants and agents work on synthetic or masked data only. No merchant data, bank statements or GST returns enter developer tooling **[plan assumption]**.
+
+## 3.3 AI Munim: intents and units
+
+**Intents** (what the business wants, in the owner's words) and the **units of work** AI breaks them into. Each unit has its own acceptance evals.
+
+| Intent | Units | Notes |
+|---|---|---|
+| **I1 · Know which outlet makes money** | U1 Outlet and role model, device tagging · U2 Paytm collections ingestion per outlet · U3 AA consent and bank/GST parsers · U10 Profit by outlet with confidence labels | Exact vs estimated on every number |
+| **I2 · Know when cash runs short** | U4 Forecast engine and back-test harness · U5 Cash plan, recurring-outflow finder, gap finder, three options | One engine feeds I2 and I3 |
+| **I3 · Know what happened at shift change** | U7 Shift check: handover entry, expected vs collected, bank confirmation, shelf photo counts, pattern rules, cashier app and Soundbox voice | Patterns by shift, never by person |
+| **I4 · Borrow at the gap, safely** | U6 Capital tab: 2-3 lender sandboxes, offers by APR, KFS, non-match reasons, drawdown to supplier, UPI AutoPay repayment | Free to every merchant |
+| **I5 · Delegate without losing control** | U8 Intent Guard: mandate store, rules as code, escalate-only AI check, PIN, hash-chained evidence, red-team suite in CI | Never cut |
+| **I6 · Pay a fair, visible price** | U9 Billing: membership, slabs, passes, CA pack, AutoPay, reminder, receipt, one-tap cancel | |
+| **I7 · Ask in Hindi** | U11 LLM Q&A with tool calls, voice, bank-narration to expense lines | Every figure must trace to a tool result |
+| **I8 · Hand the CA a clean pack** | U12 CA pack | First to cut if behind |
+
+**Revised construction plan (16 Nov 2026 - 8 Jan 2027)**
+
+| Bolts | Dates (approx.) | Units | Output |
+|---|---|---|---|
+| 0 | 16-18 Nov | Scaffold: repos, CI, eval harness, red-team skeleton, synthetic data generator, prompt and context policy | Evals run on an empty app |
+| 1-2 | 19-27 Nov | U1, U2 | Outlet model and per-outlet collections |
+| 3-4 | 30 Nov - 8 Dec | U3 | Consent flow and parsers on sandbox data; **calibration checkpoint** (re-estimate effort from measured throughput) |
+| 5-7 | 9-17 Dec | U4 | Forecast engine back-tested on real consented history (**alpha with ~5 friendly Mumbai businesses from ~14 Dec**) |
+| 8-9 | 18-24 Dec | U5, U10 | Cash plan and profit by outlet |
+| 10-11 | 25 Dec - 1 Jan | U8 | Intent Guard and evidence chain; red-team 12 of 12 |
+| 12-13 | 2-6 Jan | U6, U9 | Capital and billing (lender sandboxes; live lender integrations follow contracts) |
+| 14-15 | Overlapped through 8 Jan | U7, U11, U12 | Shift check, voice and Q&A, CA pack |
+| 16-20 | 5-8 Jan | Hardening: security review (G5), performance, accessibility, eval freeze | Release candidate |
+
+(Bolts overlap because units from different intents run in parallel once their shared bases exist.)
+
+## 3.4 Evals are the definition of done
+
+Every unit ships with an eval suite. Thresholds are **[proposed]** and are set again after the first calibration.
+
+| Capability | Eval | Threshold |
+|---|---|---|
+| Forecast | Back-test on 12 weeks, per outlet and per shift | Within ±10% of actual |
+| Bank narrations → expense lines | Labelled set of 500 lines | ≥ 95% correct category |
+| Q&A and voice | 200 owner questions in Hindi, English, Marathi | ≥ 90% correct; **100% of rupee figures traceable to a tool result** |
+| Shelf counts | Photos of 2-3 high-value shelves | ≥ 95% within ±1 pack |
+| Shift check | Replay of labelled shifts | False-alarm rate ≤ 1 in 5 (pilot gate) |
+| Intent Guard | Red-team suite (Appendix D) | **12 of 12** on every build |
+| Capital | Offer ranking and KFS | Ranked by APR; all matching offers shown; non-matches named |
+| Billing | Charge, reminder, price-lock, cancel flows | 100% of paths pass |
+| Prompt injection | Poisoned invoices, photos and messages | Zero payments initiated |
+
+## 3.5 Phases and milestones (revised)
 
 | Phase | Dates | Goal | Key deliverables | Exit criteria |
 |---|---|---|---|---|
-| **P0 · Hackathon** | 27-31 Oct 2026 | Win the room; prove the loop | Stage 1 deck; 8-hour build of the Diwali loop, shift check, Intent Guard live red-team (12/12) | Finals demo runs end to end |
-| **P1 · Validate and de-risk** | 2 Nov - 18 Dec 2026 (7 weeks) | Replace the three biggest guesses with data | (a) Paytm data pull: PANs by number of outlet IDs, device churn of multi-outlet merchants (replaces S1-S4, G4). (b) 3 lender LOIs with take rate and loss-sharing terms (C1, C4, C6). (c) AA readiness: Paytm Payments Services as FIU, fetch pricing (V4). (d) Legal sign-off: RBI Digital Lending Directions paras 6 and 9, DPDP, shift-check staff notice. (e) 20 owner interviews + 5 shadow days in Dadar/Matunga-type clusters. (f) Price test (P1, P5, P8) | Model re-run with real S2, C1, C4; go / no-go memo to leadership |
-| **P2 · Build the pilot MVP** | 9 Nov 2026 - 15 Jan 2027 (6 two-week sprints) | A product 50 owners can run | See 3.3 workstreams. Scope: outlet mapping, consents, mandate, profit per outlet, 90-day cash plan, shift check (owner + cashier + Soundbox voice), Capital tab with 2-3 live lenders, Intent Guard + evidence log, billing + receipt | Red-team 12/12; cash-plan back-test within ±10% of actual on 12 weeks of data **[proposed]**; security review passed |
-| **P3 · Closed beta** | 18 Jan - 12 Feb 2027 (4 weeks) | Find what breaks | 50 Mumbai businesses (≥ 25 with 2-5 outlets, ≥ 15 single shops, rest 6+). Weekly interviews. Decision needed: charge from day one (consistent with "no free tier") or a money-back guarantee | ≥ 70% finish onboarding; no Sev-1 money bug; shift false-alarm rate measured |
-| **P4 · Mumbai pilot** | 15 Feb - 30 Jun 2027 | Measure the five gates | Open in the Business app for single shops (no field cost); Paytm field force for 2-5 outlet owners; 2-3 CAs onboarded for the CA pack. Matched-outlet holdout for sales lift and leakage | **Gate 1 (30 Jun 2027):** all five pilot gates (see 1.6) |
-| **P5 · National roll-out** | 1 Jul 2027 - 31 Dec 2028 | Reach 85% of businesses | Metros → tier 1 → rest. Sales team for chains. Hindi, English, Marathi first, then Gujarati, Tamil, Telugu, Bengali **[plan assumption]** | Reach 30% (Q2 FY28) → 45% → 60% → 70% → 80% → 85% (Q3 FY29) |
-| **P6 · Extend** | From Q3 FY28 | Add skills under the same mandate | Restock skill; member perk once MDR is final; CA dashboard; peer benchmarks; agent-payment screening | Per Appendix E gates |
+| **P0 · Hackathon** | 27-31 Oct 2026 | Win the room; prove the loop | Stage 1 deck; 8-hour build of the Diwali loop, shift check, live red-team | Finals demo runs end to end |
+| **Inception** | 2-13 Nov 2026 | Turn intents into validated units and evals | **Mob elaboration** sessions (PM, designer, engineers, compliance, a lender-partner rep). AI drafts stories, units, NFRs, risks, eval suites; team validates. In parallel: Paytm data request, AA/FIU readiness, lender LOIs, legal review, 20 owner interviews (AI-synthesised, human-verified), price test | **G1 passed**; unit backlog with evals; model re-run with real S2, C1, C4 |
+| **Go / no-go** | 18 Dec 2026 | Decide with data | Memo to leadership with the re-run model | Approve pilot |
+| **Construction** | 16 Nov 2026 - 8 Jan 2027 | Build in bolts (3.3) | Release candidate; alpha with ~5 businesses from mid-Dec | G2-G5 passed; red-team 12/12; back-test within ±10% |
+| **Closed beta** | 11 Jan - 5 Feb 2027 | Find what breaks | 50 Mumbai businesses (≥ 25 with 2-5 outlets, ≥ 15 single shops, rest larger). Weekly interviews. Decision needed: charge from day one or money-back guarantee | ≥ 70% finish onboarding; no Sev-1 money bug; shift false-alarm rate measured |
+| **Mumbai pilot** | 8 Feb - 30 Jun 2027 | Measure the five gates | Single shops via the app; Paytm field force for 2-5 outlet owners; 2-3 CAs. Matched-outlet holdout | **Gate 1 (30 Jun 2027):** the five pilot gates (1.6) |
+| **National roll-out** | 1 Jul 2027 - 31 Dec 2028 | Reach 85% of businesses | Weekly releases behind flags; monthly **intent review** replaces sprint reviews; sales team for chains; more languages | Reach 30% (Q2 FY28) → 85% (Q3 FY29) |
+| **Extend** | From Q3 FY28 | Add skills under the same mandate | Restock skill, member perk once MDR is final, CA dashboard, peer benchmarks, agent-payment screening (each a new intent) | Per Appendix E gates |
 
-**A note on the model's early quarters.** The workbook has reach of 5% in Q4 FY27 and 15% in Q1 FY28 (9,900 → 30,700 paying members), while Gate 1 is decided only after two quarters of data (30 Jun 2027). So: (a) read Q4 FY27 and Q1 FY28 as **pilot expansion** to the metros and the first national app release for single shops, with field-force-led sales for 2-5 outlet owners paused until the gate; (b) a Mumbai-only pilot is unlikely to reach 9,900 paying members in one quarter, so treat the first two quarters as a stretch. If we hold to Mumbai only, Q4 FY27 and Q1 FY28 contribution will be lower and the 8-quarter total will fall by at least the contribution of those two quarters (₹2.65 crore at base), and more because the member base compounds.
+**A note on the model's early quarters.** The workbook has reach of 5% in Q4 FY27 and 15% in Q1 FY28 (9,900 → 30,700 paying members), while Gate 1 is decided only after two quarters of data. Read those two quarters as pilot expansion to the metros plus the first national app release for single shops, with field-force sales for 2-5 outlet owners paused until the gate. A Mumbai-only pilot is unlikely to reach 9,900 paying members in one quarter, so treat the first two quarters as a stretch; if we stay Mumbai-only, the 8-quarter total falls by at least ₹2.65 crore at base, and more as the member base compounds.
 
-## 3.3 AI Munim: workstreams
+## 3.6 AI-native product management
 
-| Workstream | Owner (role) | Scope | P2 deliverables | Depends on |
-|---|---|---|---|---|
-| **Product and design** | Product manager + designer | Owner and cashier flows, wireframes (Part 6), copy in Hindi/English/Marathi, pricing, billing UX | Spec freeze 20 Nov; high-fidelity screens by 4 Dec; usability test with 8 owners | P1 interviews |
-| **Core data and outlet model** | Backend lead | Outlet/QR/device tagging, role model, daily three-way match, ledgers | Outlet mapping; staff roles with maker-checker; settlement reconciliation | Paytm data access |
-| **Account Aggregator** | Backend + compliance | PPSL as FIU: consent 1 (purpose 102, bank daily, GST monthly, 12 months); parsers; revocation | Consent flow; ReBIT parsers for bank and GSTR-1/3B; composition-scheme fallback | FIU registration; AA sandbox |
-| **Forecast and cash plan** | ML engineer + data scientist | One engine for per-outlet sales and per-shift expected collections: festival seasonality, day/time, 12-week trend; recurring outflow detection; gap finder; options generator | Back-test on 12 weeks; 90-day plan; three-way options | Real transaction history (≥ 12 weeks) |
-| **LLM and voice** | ML engineer | Hindi/English Q&A with tool calls, bank-narration to expense lines, voice-logged expenses; push-to-talk only | Voice via Indic speech stack; evaluation set of 200 owner questions **[proposed]** | Forecast engine |
-| **Shift check** | ML + mobile | Handover entry (tap + Soundbox voice), expected vs collected, next-day bank confirmation, shelf photo counts, patterns, reasons | Cashier app; Soundbox voice flow; vision count on 2-3 shelves | Soundbox firmware hooks; staff notice |
-| **Capital** | Lending partnerships + backend | 2-3 live lenders: own consent, own rules engine, offers by APR, KFS, drawdown to supplier, UPI AutoPay repayment; credit cap logic | Sandbox integrations; offer ranking and non-match reasons; compliance review | Lender contracts |
-| **Intent Guard** | Security-minded backend | Mandate store, rules engine, AI intent check (escalate-only), PIN approval, hash-chained evidence, red-team suite in CI | 12/12 suite in CI; evidence log screen; shareable packs | Roles, Capital |
-| **Billing** | Backend + finance | Membership, slabs, passes, CA pack; UPI AutoPay; reminder 2 days before; 12-month price lock; one-tap cancel; monthly receipt | End-to-end billing with GST invoices | Legal on charges |
-| **Analytics and experiment** | Data scientist | Event tracking, matched-outlet holdout design, metric dashboards (1.6), sensitivity re-run | Dashboard live before P3 | Event schema |
-| **Go to market** | Field ops + marketing | In-app discovery for single shops; field playbook for 2-5 outlets; CA programme; pricing explainer | Playbook; 2-3 CA partners | P4 |
-| **Support and trust** | Support lead | Billing support, false-alarm handling, consent help, dispute path | Runbook; macro library; escalation | P3 |
+| Practice | How it works here | Human stays in charge of |
+|---|---|---|
+| **Intents, not tickets** | The PM writes one-paragraph intents with success metrics; AI proposes units and evals | Which intents to fund; what "good" means |
+| **Living spec** | The spec, wireframes (Part 6), flows (Part 5) and eval suites are the shared context, updated every bolt and fed back to AI | Approving changes to rules (limits, caps, consent wording) |
+| **Prototype first** | Screens from Part 6 go to clickable prototypes within hours; 8 owners test before the bolt is built | Reading owner reactions |
+| **Continuous discovery** | AI transcribes and clusters interviews and support tickets; the PM reads the raw quotes behind every theme | Interpretation and trade-offs |
+| **Model-in-the-loop pricing** | The Excel model is re-run automatically as pilot data lands (S2, A1, A2, C1, C4, MV4); sensitivity table updates itself | Price decisions, the 0.5% single-shop gate |
+| **Experiments** | Holdout design, exposure logging and analysis scripted up front; AI drafts the readout | Calling a result |
+| **Dashboards** | Built from the event schema; the metric tree in 1.6 is the spec | Choosing alarm thresholds |
+| **Weekly intent review** | Replaces sprint review: eval trends, owner feedback, guardrails, next intents | Prioritisation |
 
-## 3.4 Critical path and dependencies
+## 3.7 Critical path and dependencies (revised)
 
 ```
   Finals (31 Oct)
        |
-       +--> P1: Paytm data pull ------------------+
-       +--> P1: lender LOIs ----------------------+--> Model re-run ---> Go/no-go (18 Dec)
-       +--> P1: FIU / AA readiness ---------------+                           |
-       +--> P1: legal sign-off -------------------+                           v
-                                                         P2 build (to 15 Jan) ---> P3 beta ---> P4 pilot ---> Gate 1 (30 Jun)
+       +--> Inception (2-13 Nov) --> Construction in bolts (16 Nov - 8 Jan) --> Closed beta (11 Jan)
+       |
+       +--> FIU / AA readiness -----------------+
+       +--> Lender LOIs and contracts -----------+--> Model re-run --> Go/no-go (18 Dec) --> live lenders in beta
+       +--> Legal sign-off (G5) -----------------+
+       +--> 12 weeks of per-outlet history (alpha from ~14 Dec) --> forecast back-test
 ```
 
-The long poles are **(1) FIU registration and AA fetch pricing**, **(2) lender contracts with pre-approval via their own rules engines**, and **(3) 12 weeks of per-outlet history** for forecast back-testing. If any of these slips past mid-December, the pilot slips to Q1 FY28 and the model's quarter alignment shifts by one quarter.
+| What AI-DLC compresses | What it does not |
+|---|---|
+| Specs, stories, test and eval writing, scaffolding, CRUD and integrations, parsers, screens, documentation, interview synthesis, analytics scripts | FIU registration and AA fetch pricing, lender contracts and pre-approval terms, legal and regulatory review, 12 weeks of history, field-force training, building owner trust, two quarters of pilot data |
 
-## 3.5 Risks to the plan
+If FIU access, lender contracts or legal slip past mid-December, the pilot slips to Q1 FY28 and the model's quarter alignment shifts by one quarter, even if the build finishes on time.
+
+## 3.8 Risks to the plan
+
+**Product and delivery risks (unchanged from before, with owners at the gate level)**
 
 | Risk | Likelihood / impact **[my view]** | Mitigation |
 |---|---|---|
-| FIU / AA access delayed | Medium / High | Start in Week 1 of P1. Fallback for beta: owner uploads bank statements (reduced features, plainly labelled) |
-| Lenders won't pre-approve at the volume assumed (C1 45%) | Medium / Medium | Sign 3; fallback to 2. Bear C1 (30%) still gives ₹67.2 cr |
-| Single shops won't pay | High / Medium | Gate at 0.5%. No paid acquisition below it |
+| FIU / AA access delayed | Medium / High | Start in Week 1; fallback for beta is owner-uploaded statements (reduced features, plainly labelled) |
+| Lenders won't pre-approve at the volume assumed (C1 45%) | Medium / Medium | Sign 3; fall back to 2. Bear C1 (30%) still gives ₹67.2 cr |
+| Single shops won't pay | High / Medium | Gate at 0.5%; no paid acquisition below it |
 | Owners distrust another monthly charge | Medium / High | Separate line, reminder, price lock, one-tap cancel, receipt vs what the Munim found |
 | Shift checks feel like surveillance | Medium / High | Two shelves only, blurred faces, shift-level patterns, staff told at onboarding, only owner sees results |
-| False alarms | Medium / High | Ranges not points; patterns over weeks; reason buttons; guardrail ≤ 1 in 5 |
-| Bank/GST data business-wide, not per outlet | Certain / Medium | Label exact vs estimated on every number |
-| Prompt injection via invoices, photos, messages | Medium / High | Content is data, never instructions; red-team cases 3 and 10; AI check escalate-only |
-| Credit quality | Low-Medium / High | Lender-owned underwriting; credit cap; pay supplier directly; loss sharing capped (bear 0.75%) |
-| Team capacity | Medium / Medium | Cut order if behind: CA pack → photo counts → Soundbox voice shift close → second language. Never cut Intent Guard |
+| False alarms | Medium / High | Ranges, patterns over weeks, reason buttons; guardrail ≤ 1 in 5 |
+| Bank/GST data is business-wide, not per outlet | Certain / Medium | Exact vs estimated labels on every number |
+| Prompt injection via invoices, photos, messages | Medium / High | Content is data, never instructions; red-team cases 3 and 10; AI check is escalate-only |
+| Credit quality | Low-Medium / High | Lender-owned underwriting; credit cap; pay supplier directly; loss sharing capped |
 
-## 3.6 Team and cost (placeholder, to be replaced with Paytm's rates)
+**New risks from building with AI**
+
+| Risk | Likelihood / impact **[my view]** | Mitigation |
+|---|---|---|
+| AI-written code with subtle defects in money paths | Medium / High | G3: mandatory human review on money paths and Intent Guard; threat models at G2; red-team and property tests in CI |
+| Spec drift or hallucinated requirements in AI-drafted stories | Medium / Medium | G1 line-by-line review; every story traces to an intent; compliance in the room |
+| Eval overfitting or leakage (tests written by the same AI that wrote the code) | Medium / Medium | Evals authored or reviewed by a different person; held-out sets; real beta data back-test |
+| Merchant data leaking into developer tools | Low / High | Synthetic or masked data only in tooling; access controls; audit |
+| Insecure or unlicensed dependencies suggested by AI | Medium / Medium | Dependency scanning, license checks, pinned versions, SBOM |
+| Velocity outruns compliance | Medium / High | Compliance reviews each bolt; consent and lending changes need G5 |
+| Small pod, knowledge concentration | Medium / Medium | Generated docs as context; pair rotation; a second pod after Gate 1 |
+| Over-trust in AI output | Medium / Medium | Reviewers sample AI output against sources; groundedness eval (100% of figures traceable) |
+| Model or vendor change alters behaviour | Medium / Medium | Pin versions; eval suite re-run on every model change |
+| Inference and tooling cost grows | Low-Medium / Low | Track cost per bolt and per member outlet (V1 ₹25 assumes this) |
+
+**If we fall behind, cut in this order:** CA pack → shelf photo counts → Soundbox voice shift close → second language. Never cut Intent Guard.
+
+## 3.9 Team and cost (placeholder, to be replaced with Paytm's rates)
 
 | Item | Assumption **[plan assumption]** |
 |---|---|
-| Core squad through P3 | 1 PM, 1 designer, 6 engineers (backend/data ×2, ML ×2, mobile ×1, security/platform ×1), 1 data scientist, 1 QA ≈ 10 people |
-| Effort to closed beta | ≈ 18 person-months (Munim core + Intent Guard) |
-| Shared | Legal/compliance, lending partnerships lead, field ops lead, support lead (part-time) |
-| Illustrative fully loaded cost | ₹3 lakh per person-month → ₹30 lakh a month for the squad ≈ ₹1.1 crore a quarter, plus ≈ ₹0.5 crore for the pre-pilot build |
-| What the variable-cost lines already cover | Onboarding, support, AI, AA data, photo checks, collections, credit-loss sharing (so field and support cost are **not** double counted) |
-| Reading (squad cost held flat, PA8) | At base, cumulative contribution (₹7.4 cr by Q2 FY28) passes cumulative squad cost (≈ ₹3.8 cr) around **Q2 FY28**; by Q3 FY29 the squad has cost ≈ ₹9 crore against ₹79 crore of contribution. At bear (₹2.1 cr over 8 quarters) it does **not** pay back, which is why Gate 1 exists |
+| Pod through closed beta | 5 people: product owner, designer-engineer, 2 senior engineers, 1 applied-AI/eval engineer |
+| Shared, part-time | Compliance, lending partnerships lead, data/analytics, field ops lead, support lead |
+| Effort to closed beta | ≈ 10 person-months (was 18); **re-estimate after bolt 3 from measured throughput** |
+| Illustrative loaded cost | ₹3 lakh per person-month → ₹15 lakh a month for the pod ≈ ₹0.45 crore a quarter, plus ≈ ₹0.3 crore for the pre-pilot build |
+| AI tooling and inference for development | ₹50,000 per person per month (placeholder) ≈ ₹0.08 crore a quarter |
+| Total squad cost | ≈ ₹0.53 crore a quarter; ≈ ₹4.5 crore over 8 quarters with the pod held flat (PA8) |
+| Second pod | Added after Gate 1 for Restock and national scale; not in this number |
+| What the variable-cost lines already cover | Onboarding, support, AI, AA data, photo checks, collections, credit-loss sharing |
+| Reading | At base, cumulative contribution (₹2.7 cr by Q1 FY28) passes cumulative squad cost (≈ ₹1.4 cr) around **Q1 FY28**; by Q3 FY29 the pod has cost ≈ ₹4.5 crore against ₹79 crore of contribution. At bear (₹2.1 cr over 8 quarters) it still does **not** pay back, which is why Gate 1 exists |
 
-## 3.7 Plans for the other two features
+## 3.10 Delivery metrics (how we know AI-DLC is working)
 
-### B · Restock Agent + Soundbox Care (sequenced after the Munim)
+| Metric | Why | Target **[proposed]** |
+|---|---|---|
+| Bolt cycle time (intent to evaluated unit) | Throughput | 2-3 days |
+| Units passing evals first time | Quality of AI drafts | ≥ 70% by bolt 10 |
+| Human review time per bolt | Is review the bottleneck? | Tracked; no target in the first 3 bolts |
+| Escaped defects (found in beta or pilot) | Real quality | Zero Sev-1 on money paths |
+| Rework rate (units reopened) | Spec quality | ≤ 15% |
+| Eval coverage of capabilities | Definition of done | 100% of units have evals |
+| Spec-to-production lead time | Speed | ≤ 1 week for small changes after beta |
+| AI-authored share of code | Information only, not a goal | Reported, not targeted |
+
+## 3.11 Plans for the other two features
+
+### B · Restock Agent + Device Care (sequenced after the Munim)
+
+The effort figures here (Restock 9, Care 4 person-months) are the **earlier RICE estimates, made on SDLC assumptions**. Re-estimate them from the Munim pod's measured throughput after bolt 3. Supplier onboarding, field operations and device logistics are not compressible by AI-DLC.
 
 | Phase | Dates | Work | Exit criteria |
 |---|---|---|---|
@@ -535,6 +654,23 @@ The long poles are **(1) FIU registration and AA fetch pricing**, **(2) lender c
 | **B3 · City-by-city scale** | Q4 FY28 - Q3 FY29 | Field force onboards suppliers; paid plan ₹99 for Autopilot; MDR on supplier payments above ₹2,000 once live | Base case: 5.35 lakh active merchants at Q3 FY29 |
 | **Care (ops-owned)** | Decision Q1 FY28 | Detect missed announcements against Paytm records, remote heal, announce on owner's phone while the device is down, ship replacement before failure | Remote-fix rate and cost per covered device; only proceed if Care returns ≥ ₹1 per ₹1 in the pilot (bear ₹0.82, base ₹3.15) |
 | **Key effort** | Restock 9 pm + Care 4 pm | | Base: 8-quarter contribution ₹96.2 cr (Restock ₹26.2 + Care ₹70.0) |
+
+### Device Care: scope beyond the Soundbox
+
+Care is described in the workbooks as Soundbox Care because the model started from the Soundbox. The mechanism (detect a fault, heal remotely, keep the counter taking payments, replace before failure) applies to any Paytm device, including POS and card machines, and the outlet view (W12) shows status for every device at the counter.
+
+The Care **numbers are still Soundbox-sized**. Before treating ₹70.0 crore as "Device Care", re-run with POS data:
+
+| Input | Soundbox value in the model | What changes for POS |
+|---|---|---|
+| Cost per field visit (C4) | ₹350 | Likely higher; needs Paytm's figure |
+| Replacement cost (C7) | ₹1,500 | Likely several times higher; needs Paytm's figure |
+| Incident types | Offline, not announcing, battery, damage | Add failed card payments, printer or paper faults, terminal software faults |
+| Detection | Missed announcement checked against Paytm's payment records | Needs a different signal, e.g. failed then retried card transaction |
+| Down-device GMV lost (C10) | 20% of daily GMV | Probably higher: a failed card payment loses the sale |
+| Coverage ramp (CR) | 5% → 85% of the device base | Split by device type: firmware and remote-fix capability differ |
+
+Until re-run, treat the Care figures in this file as Soundbox-only.
 
 ### C · Mohalla / Nearby (held)
 
@@ -667,22 +803,25 @@ A2 (share of 2-5 outlet businesses that pay, base 10%) is worth the same ±₹17
 
 | # | Assumption | Basis |
 |---|---|---|
-| PA1 | Dates: finals 31 Oct 2026; pilot starts Jan 2027; Gate 1 on 30 Jun 2027 | Pilot gates in the deck require two quarters of data |
-| PA2 | Squad of ~10; ~18 person-months to closed beta; ₹3 lakh per person-month fully loaded | My estimate; replace with Paytm's rates |
+| PA1 | Dates: finals 31 Oct 2026; Inception 2-13 Nov; Construction 16 Nov - 8 Jan; closed beta 11 Jan; pilot 8 Feb 2027; Gate 1 on 30 Jun 2027 | Pilot gates in the deck require two quarters of data |
+| PA2 | One AI-DLC pod of ~5; ~10 person-months to closed beta; ₹3 lakh per person-month fully loaded plus ₹50,000 per person per month for AI tooling | My estimate; re-estimate after bolt 3; replace with Paytm's rates |
 | PA3 | Closed beta of 50 businesses (25 with 2-5 outlets, 15 single shops, 10 larger) | Enough to see onboarding and false-alarm patterns, too few to prove willingness to pay |
 | PA4 | Forecast back-test within ±10% on 12 weeks | Proposed acceptance bar |
 | PA5 | AA consent completion ≥ 60%; weekly active ≥ 60% of members | Proposed targets; to be reset after beta |
 | PA6 | Language order: Hindi, English, Marathi first; then Gujarati, Tamil, Telugu, Bengali | Market judgement |
 | PA7 | Beta charges from day one (consistent with "no free tier") | Open decision: money-back guarantee as the alternative |
-| PA8 | Fixed squad cost held flat through national roll-out | Simplification; real cost grows with scale |
+| PA8 | Fixed pod cost held flat through national roll-out (second pod after Gate 1 not included) | Simplification; real cost grows with scale |
+| PA10 | AI-DLC throughput: bolts of 2-3 days, ~20 bolts to a release candidate, ≥ 70% of units passing evals first time by bolt 10 | Plan assumptions to calibrate at bolt 3; not measured Paytm data |
+| PA11 | AI-DLC compresses build, specs, tests and documentation; it does not compress regulatory, lender, field or trust timelines | Why the pilot start stays in Jan 2027 |
+| PA12 | Developer tooling works on synthetic or masked data only | Policy choice, to confirm with security |
 | PA9 | Derived splits (margin by block, cumulative contribution, 4.0% for Mohalla) | Computed from the workbooks' numbers; labelled **[derived]** |
 
 ## 4.6 Tensions we already know about
 
 | Tension | What it means | What we do |
 |---|---|---|
-| Model reach of 5% in Q4 FY27 and 15% in Q1 FY28 (9,900 → 30,700 members) vs a Mumbai-only pilot and a gate at 30 Jun 2027 | Early quarters may be too high | Treat as stretch; see 3.2; re-base after Gate 1 |
-| Contribution is **variable** contribution, not EBITDA | Fixed squad and field cost are excluded | 3.6 shows an illustrative payback |
+| Model reach of 5% in Q4 FY27 and 15% in Q1 FY28 (9,900 → 30,700 members) vs a Mumbai-only pilot and a gate at 30 Jun 2027 | Early quarters may be too high | Treat as stretch; see 3.5; re-base after Gate 1 |
+| Contribution is **variable** contribution, not EBITDA | Fixed squad and field cost are excluded | 3.9 shows an illustrative payback |
 | Option B's contribution counts avoided costs; the Munim's does not | The comparison flatters B | Part 2 says so; restate on a like-for-like basis before any funding decision |
 | A2 (10%) is unchanged from the old flat-price version even though 2-5 outlet owners now pay less | Possible upside not counted | Pilot measures actual conversion |
 | Illustrative merchant (Sharma General Stores: ₹19 lakh a month across 3 outlets) is richer than the model's ₹3.5 lakh per outlet | The demo shows a better-off merchant than the average | Notes on slide 9; K2/K3/MV1 are the model's numbers |
@@ -769,7 +908,7 @@ These are choices we made in the design. None is a Paytm policy yet. Each should
 
 Listed in full so the comparison in Part 2 can be audited. Values are bear / **base** / bull.
 
-### Restock Agent + Soundbox Care (`Restock_Care_Projection.xlsx`)
+### Restock Agent + Device Care (`Restock_Care_Projection.xlsx`)
 
 **Who is eligible and who uses it**
 
@@ -827,7 +966,7 @@ Listed in full so the comparison in Part 2 can be audited. Values are bear / **b
 | R32 | Support per active merchant per month | ₹20 | **₹12** | ₹8 |
 | R33 | Processing cost on new supplier payments | 0.02% | **0.01%** | 0.005% |
 
-**Soundbox Care**
+**Device Care**
 
 | ID | Assumption | Bear | **Base** | Bull |
 |---|---|---:|---:|---:|
@@ -904,7 +1043,7 @@ Listed in full so the comparison in Part 2 can be audited. Values are bear / **b
 | Restock + Care + Nearby model inputs | 65 | 4.11 |
 | Mohalla model inputs | 21 | 4.11 |
 | External facts relied on | 11 | 4.4 |
-| Plan assumptions added in this file | 9 | 4.5 |
+| Plan assumptions added in this file | 12 | 4.5 |
 | Known tensions | 8 | 4.6 |
 
 
@@ -1345,7 +1484,7 @@ flowchart LR
 **Purpose:** give every other screen its outlet and staff data; the home of Foundation features.
 **Data:** Paytm devices and QRs on the merchant ID; staff roster entered by the owner; device status from the Soundbox.
 **Actions:** Edit outlet; assign unmapped device; add outlet (price note shows when crossing outlet 5); name the other QRs used for handover totals.
-**States:** unmapped devices block "exact" labelling; a device in trouble shows an amber line (this is where Soundbox Care's idea lands).
+**States:** unmapped devices block "exact" labelling; a device in trouble shows an amber line (this is where Device Care's idea lands).
 **Rules:** only the owner can change outlet mapping (red-team case 11).
 
 ### W2 · Consent 1: connect the business's data
@@ -1963,7 +2102,8 @@ STALE BANK DATA
 | 6 | Legal view on: RBI DLD paras 6 and 9, DPDP, shift-check staff notice, data retention after cancel | Legal | 4 Dec 2026 | Before consents go live |
 | 7 | Confirm no overlapping Paytm roadmap for outlet P&L / cash plan | Product leadership | 6 Nov 2026 | Avoid duplicate build |
 | 8 | Like-for-like restatement of Option B's contribution (without avoided costs) | Finance | Before any funding decision | Fair comparison |
-| 9 | Re-base Q4 FY27 and Q1 FY28 for a Mumbai-only pilot | Analytics | After Gate 1 | See 3.2 and 4.6 |
+| 9 | Re-base Q4 FY27 and Q1 FY28 for a Mumbai-only pilot | Analytics | After Gate 1 | See 3.5 and 4.6 |
+| 11 | Calibrate pod throughput after bolt 3 (about 8 Dec 2026) and re-estimate effort for the Munim and for the other two features | Product owner | 8 Dec 2026 | AI-DLC effort figures are plan assumptions |
 | 10 | Confirm partner and tool names (voice, workflow, memory) before naming them on slides | Team | Before submission | Event partner list needs portal confirmation |
 
 ## 7.2 Where each number comes from
@@ -1977,7 +2117,7 @@ STALE BANK DATA
 | Roadmap | `AI_Munim_Deck_Content.md` → Appendix E |
 | Restock + Care projections | `Restock_Care_Projection.xlsx` → Summary; `Restock_Care_Deck_Content.md` → slides 2, 3, 6, 7 |
 | Mohalla projections | `Mohalla_GMV_Projection.xlsx` → Summary; `Mohalla_Deck_Content.md` → slides 2, 3, 6, 7 |
-| Added in this file | Part 3 dates, team and cost (PA1-PA9); wireframes W0, W12-W16; metric targets marked **[proposed]**; margin-by-block and cumulative contribution marked **[derived]** |
+| Added in this file | Part 3 dates, team and cost (PA1-PA12); wireframes W0, W12-W16; metric targets marked **[proposed]**; margin-by-block and cumulative contribution marked **[derived]** |
 
 ## 7.3 One-paragraph summary
 
