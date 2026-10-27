@@ -58,7 +58,7 @@ Paytm's merchant business has a **contribution problem, not a volume problem**. 
 | **1** | AI Munim in detail: what it does, merchant benefit, how it grows the merchant, benefit to Paytm, how it moves the north star, business metrics and contribution margin, 8-quarter forecast, success metrics |
 | **2** | Why AI Munim over the other two: scorecard, risk-adjusted view, what would change our mind |
 | **3** | Project plan for all three features, with the detailed plan for the Munim |
-| **4** | Assumptions (model, plan, and what the pilot must prove) |
+| **4** | Full assumptions register: Munim model, shared baseline, product rules, go-to-market, the other two models, external facts, plan assumptions, known tensions |
 | **5** | Product user flow for AI Munim |
 | **6** | Textual wireframes of every Munim screen |
 | **7** | Open items and sources |
@@ -548,11 +548,17 @@ The long poles are **(1) FIU registration and AA fetch pricing**, **(2) lender c
 
 # PART 4 · Assumptions
 
-Three kinds, kept apart so you can see what is evidence and what is a guess:
+This part is the full register. Groups are kept apart so you can see what is evidence and what is a guess:
 
-- **4.1-4.3** model assumptions (team estimates in `AI_Munim_Projection.xlsx`, Assumptions sheet)
+- **4.1-4.3** AI Munim model assumptions (team estimates in `AI_Munim_Projection.xlsx`, Assumptions sheet)
 - **4.4** external facts the case relies on (reported, with the dates they come from)
-- **4.5-4.6** plan assumptions I added in this file, and the tensions we already know about
+- **4.5-4.6** plan assumptions added in this file, and the tensions we already know about
+- **4.7** what the pilot must prove
+- **4.8** baseline assumptions shared by all three models
+- **4.9** product-rule parameters (limits, thresholds, windows) used in the screens and flows
+- **4.10** go-to-market, operating and risk assumptions
+- **4.11** the full assumption tables of Restock + Care and Mohalla
+- **4.12** a count of every group
 
 ## 4.1 The three assumptions that carry the model
 
@@ -694,6 +700,213 @@ A2 (share of 2-5 outlet businesses that pay, base 10%) is worth the same ±₹17
 | C1-C4 (credit) | Lender data | Pre-approval rate and take rate within bear-to-base; overdues no worse than partners' books |
 | S2 (segment size) | Paytm's PAN-by-outlet count | Replaces the estimate |
 | Billing trust | Churn and complaints in first 3 invoices | Below thresholds set after 8 weeks of data |
+
+## 4.8 Baseline and shared assumptions (all three models)
+
+| # | Assumption | Value / basis |
+|---|---|---|
+| B1 | Baseline Paytm GMV is projected with Excel `FORECAST` (linear) on 8 reported quarters, Q2 FY25 to Q1 FY27; `GROWTH` (exponential) is a cross-check only | Linear gives ₹10.39 lakh crore in Q3 FY29; exponential ₹12.85 lakh crore (24% higher). We use the conservative line |
+| B2 | Device merchants are projected the same way | ~2.23 crore at Q3 FY29 (FORECAST) |
+| B3 | Q1 FY27 reference figures: GMV ₹7.1 lakh crore; EBITDA ₹203 crore; contribution profit ₹1,350 crore; financial services revenue ₹814 crore; 1.57 crore subscription merchants | Paytm Q1 FY27 results; used for every "% of EBITDA" ratio |
+| B4 | The 8-quarter window is Q4 FY27 (Jan-Mar 2027) to Q3 FY29 (Oct-Dec 2028); the first quarter is a pilot | Fiscal year runs April to March |
+| B5 | Payment processing margin on incremental GMV is 4 bps in all scenarios (K1 / A15) | Paytm: "comfortably above 4 bps" |
+| B6 | Device subscription revenue is about ₹90 per device per month (bear ₹80, bull ₹100) | Q4 FY24 figure; Q1 FY27 notes a modest decline |
+| B7 | Ceiling check: Q1 FY27 GMV ÷ device merchants ÷ 3 months ≈ ₹1.5 lakh per merchant per month if every rupee came from device merchants. Per-merchant GMV inputs (K2, K3, R27, A8) are set below it | It is a ceiling, not an estimate |
+| B8 | "Contribution" = revenue (plus avoided costs, Restock + Care only) minus variable cost. Fixed engineering, platform and field-force salaries are excluded in all three models | Not EBITDA |
+| B9 | All scenario-specific numbers are **team estimates for this pitch, not Paytm data**, except the reported quarters | Footnote 2 on every projection slide |
+| B10 | Scenarios move assumptions together (bear = all at bear values, bull = all at bull values). Real outcomes will mix them | The sensitivity table in 1.5 moves one at a time |
+
+## 4.9 Product-rule assumptions (design parameters used in the screens and flows)
+
+These are choices we made in the design. None is a Paytm policy yet. Each should be confirmed in Phase 1 or the beta.
+
+| # | Parameter | Value used | Where it appears |
+|---|---|---|---|
+| D1 | Drawdown needs the owner's PIN above | ₹50,000 | W3, W7 |
+| D2 | Refund needs the owner above | ₹5,000 | W3 |
+| D3 | Cashier refund limit / daily cap | ₹500 / ₹2,000 | W3, F1 |
+| D4 | Manager refund limit | ₹5,000 | W3 |
+| D5 | Credit cap | All EMIs ≤ 8% of average daily collections (≈ ₹1.52 lakh a month for a ₹19 lakh business) | W3, W13 |
+| D6 | Forecast training window | Last 12 weeks, plus last year's festival pattern | W4, W8 |
+| D7 | Expected-range width for a shift | About ±4% around the point forecast (₹17,600 → ₹16,900-18,300) | W8 |
+| D8 | Pattern rule for a shift alert | Repeated shortfall over weeks (e.g. 3 of the last 4 same-weekday shifts), never a single shift | W8 |
+| D9 | Shifts per outlet per day | 2 | V2 |
+| D10 | Shelf photos per handover | 2-3 high-value shelves; faces blurred | F1, V3 |
+| D11 | Bank data fetch | Daily; GST monthly; consent valid 12 months, purpose code 102 | W2 |
+| D12 | Gap alert horizon | Gap within 21 days alerts the owner; plan covers 90 days | W1, W5 |
+| D13 | Duplicate-invoice window | Same supplier, amount and items within 30 days | Red-team case 6 |
+| D14 | Changed payee | Always needs the owner plus a call-back | Red-team case 2 |
+| D15 | Off-hours rule | A large payment request from a cashier login at 2 am escalates | Red-team case 9 |
+| D16 | Billing | Own line; UPI AutoPay; reminder 2 days before every charge; 12-month price lock; one-tap cancel | W11 |
+| D17 | Failed AutoPay | Retry, then pause after 7 days unresolved **[proposed]** | 5.11 |
+| D18 | Restock price band | Within 3% of the last bill (in the Restock plan) | Part 3 |
+| D19 | Illustrative drawdown example | ₹2 lakh at 18.5% APR for 26 days ≈ ₹2,600 interest; 3-month repayment ₹68,730 | W4, W6 |
+| D20 | Illustrative "buy less" example | ₹1.8 lakh less stock at a 15% margin risks ≈ ₹27,000 | W4 |
+| D21 | Demo calendar | Lakshmi Puja 8 Nov 2026; salaries on the 1st, rent on the 5th, GST on the 20th | W5 |
+| D22 | UPI MDR | 0.40% above ₹2,000 (capped ₹300), deferred past Diwali; shown as "expected" from January | W5 |
+| D23 | Language support at pilot | Hindi, English, Marathi | Appendix E |
+| D24 | Soundbox voice is push-to-talk only | No always-listening mode (customers can't consent) | F2 |
+
+## 4.10 Go-to-market, operating and risk assumptions
+
+| # | Assumption | Basis |
+|---|---|---|
+| GT1 | Single shops are reached inside the Business app at near-zero cost; 2-5 outlet owners by Paytm's existing field force; chains by a sales team; CAs as a channel | Slide 11; no field cost is modelled for single shops |
+| GT2 | Reach per quarter: 5% → 15% → 30% → 45% → 60% → 70% → 80% → 85% of businesses | MR; held constant across scenarios |
+| GT3 | Paid from day one; no free tier | Slide 11 "ruled out" |
+| GT4 | The membership is not bundled with the Soundbox rental | Billing trust |
+| GT5 | Lenders pay Paytm 2% of each drawdown; Paytm never holds or routes the money | RBI Digital Lending Directions |
+| GT6 | Capital is open to every merchant; only drawdowns prompted by a member's cash plan are counted as Munim revenue | README of the workbook |
+| GT7 | Chains of 21+ outlets use their own bank limits, so Capital is excluded for them | C1 note |
+| GT8 | Enterprise deals are sales-led and slow; the 21+ slab is a list price that chains will negotiate | A4, P4 |
+| GT9 | 2-5 outlet adoption (A2 = 10%) is unchanged from the flat-price version even though they now pay less | Conservative |
+| GT10 | The member perk (credits on Paytm QR charges once MDR is live), Restock as a Munim skill, agent payments and any lift in 2-5 outlet adoption from the lower price are **not** in the numbers | Upside, not counted |
+| GT11 | Paytm may or may not already be building parts of this; we assume the new layer is outlet profit, the cash plan, the shift check and the mandate | Risk table |
+| GT12 | Lender supply: at least 2-3 lenders pre-approve lines using their own rules engines and AA consent | C1 |
+| GT13 | Partner and tool names (voice, workflow, memory) are subject to portal confirmation | Slide 10 note |
+
+## 4.11 Assumptions of the two options we did not choose
+
+Listed in full so the comparison in Part 2 can be audited. Values are bear / **base** / bull.
+
+### Restock Agent + Soundbox Care (`Restock_Care_Projection.xlsx`)
+
+**Who is eligible and who uses it**
+
+| ID | Assumption | Bear | **Base** | Bull |
+|---|---|---:|---:|---:|
+| K2 | Paytm GMV per average device merchant per month | ₹50,000 | **₹60,000** | ₹80,000 |
+| K3 | Device subscription revenue per merchant per month | ₹80 | **₹90** | ₹100 |
+| R1 | Grocery/FMCG shops among device merchants | 30% | **40%** | 50% |
+| R2 | Covered merchants who finish onboarding and order every month | 5% | **10%** | 15% |
+| R3 | Supplier purchases per active merchant per month | ₹1,50,000 | **₹2,50,000** | ₹3,50,000 |
+| R4 | Share of purchases ordered through the agent | 20% | **35%** | 50% |
+| R5 | Agent orders paid through Paytm | 50% | **70%** | 85% |
+| R6 | Of those, new to Paytm | 40% | **60%** | 75% |
+| RR | Eligible shops in live cities, by quarter | 2% → 6% → 12% → 20% → 30% → 40% → 50% → 60% (same in all scenarios) | | |
+
+**Credit routing**
+
+| ID | Assumption | Bear | **Base** | Bull |
+|---|---|---:|---:|---:|
+| R7 | Agent-ordered value where the merchant asks for pay-later | 15% | **25%** | 35% |
+| R8 | Pay-later requests approved on at least one rail | 35% | **50%** | 65% |
+| R9-R12 | Rail mix: partner lenders / MUDRA on UPI / OCEN / ONDC | 45 / 25 / 15 / 15% (same in all scenarios) | | |
+| R13 | Paytm take per 30-day cycle: partner lenders | 0.3% | **0.5%** | 0.7% |
+| R14 | Take: MUDRA credit line on UPI | 0% | **0%** | 0.1% |
+| R15 | Take: OCEN | 0.2% | **0.4%** | 0.5% |
+| R16 | Take: ONDC Financial Services | 0.2% | **0.3%** | 0.5% |
+| R17 | Active merchants taking a working-capital loan each year | 5% | **10%** | 15% |
+| R18 | Average working-capital loan | ₹1,00,000 | **₹1,50,000** | ₹2,00,000 |
+| R19 | Paytm revenue per working-capital loan | 2% | **3%** | 4% |
+| R20 | Credit-loss sharing, pay-later (per cycle) | 0.25% | **0.1%** | 0% |
+| R21 | Credit-loss sharing, working-capital loans | 1.5% | **0.5%** | 0% |
+| R35 | Merchant's cost of pay-later per 30-day cycle | 2.00% | **1.75%** | 1.50% |
+
+**MDR, plan and merchant economics**
+
+| ID | Assumption | Bear | **Base** | Bull |
+|---|---|---:|---:|---:|
+| R22 | MDR switch (1 = MDR above ₹2,000 is live) | 0 | **1** | 1 |
+| R23 | New supplier payments above ₹2,000 going to non-exempt distributors | 40% | **60%** | 75% |
+| R24 | Paytm's effective share of MDR | 0.05% | **0.10%** | 0.15% |
+| R25 | Paid plan attach rate | 10% | **20%** | 30% |
+| R26 | Paid plan price per month | ₹49 | **₹99** | ₹149 |
+| R27 | Paytm sales per active merchant before Restock | ₹50,000 | **₹80,000** | ₹1,20,000 |
+| R28 | Sales increase from fewer stock-outs and stock on credit | 1% | **2%** | 3% |
+| R34 | Merchant gross margin | 7% | **9%** | 11% |
+| R36 | Value Intent Guard stops going wrong (of agent-ordered value) | 0.10% | **0.20%** | 0.30% |
+
+**Costs**
+
+| ID | Assumption | Bear | **Base** | Bull |
+|---|---|---:|---:|---:|
+| R29 | AI per active merchant per month | ₹25 | **₹15** | ₹10 |
+| R30 | Extra AI/guard checks per paid-plan merchant per month | ₹25 | **₹15** | ₹10 |
+| R31 | Onboarding per newly active merchant | ₹400 | **₹250** | ₹150 |
+| R32 | Support per active merchant per month | ₹20 | **₹12** | ₹8 |
+| R33 | Processing cost on new supplier payments | 0.02% | **0.01%** | 0.005% |
+
+**Soundbox Care**
+
+| ID | Assumption | Bear | **Base** | Bull |
+|---|---|---:|---:|---:|
+| C1 | Device incidents per 100 covered devices per year | 40 | **40** | 40 |
+| C2 | Incidents that need a field visit today | 60% | **60%** | 60% |
+| C3 | Field visits avoided by remote or guided fixes | 15% | **30%** | 45% |
+| C4 | Cost per field visit | ₹350 | **₹350** | ₹350 |
+| C5 | Incidents ending in a replacement today | 25% | **25%** | 25% |
+| C6 | Replacements avoided | 5% | **10%** | 20% |
+| C7 | Cost of a replacement incl. logistics | ₹1,500 | **₹1,500** | ₹1,500 |
+| C8 | Days down per incident today | 4 | **4** | 4 |
+| C9 | Cut in days down per incident | 25% | **50%** | 65% |
+| C10 | Down device's Paytm GMV lost while down | 10% | **20%** | 30% |
+| C11 | Incident devices returned within a year, today | 8% | **8%** | 8% |
+| C12 | Cut in post-incident returns with Care | 15% | **30%** | 45% |
+| C13 | Telemetry and AI cost per covered device per month | ₹2 | **₹1** | ₹0.5 |
+| C14 | Phone fallback cost per incident | ₹15 | **₹10** | ₹5 |
+| CR | Care coverage of the device base, by quarter | 5% → 15% → 30% → 45% → 60% → 70% → 80% → 85% | | |
+
+**Nearby (switched off in all scenarios; shown as an option)**
+
+| ID | Assumption | Bear | **Base** | Bull |
+|---|---|---:|---:|---:|
+| N0 | Switch: NPCI's 30% UPI cap enforced and Nearby runs | 0 | **0** | 0 |
+| N1 | Device merchants in dense clusters | 20% | **30%** | 40% |
+| N2 | Participation | 5% | **10%** | 15% |
+| N3 | Verified new customers per merchant per month | 2 | **4** | 6 |
+| N4 | First bill | ₹250 | **₹300** | ₹350 |
+| N5 | Share of Nearby GMV new to Paytm | 30% | **50%** | 70% |
+| N6 | Paytm fee per verified new customer | ₹8 | **₹12** | ₹15 |
+| N7 | Paytm-funded cashback replaced per customer | ₹5 | **₹10** | ₹15 |
+| N8 | Uplift model and offer cost per merchant per month | ₹10 | **₹6** | ₹4 |
+| N9 | Payout cost per reward | ₹2 | **₹1** | ₹0.5 |
+| NR | Eligible clusters live, by quarter (only if on) | 0% → 5% → 15% → 25% → 35% → 45% → 55% → 60% | | |
+
+**Built-in rules.** Only supplier payments new to Paytm count as incremental GMV; pay-later revolves every 30 days; working-capital loans count at disbursal; Care's avoided costs count toward contribution; devices kept by Care are cumulative; fixed engineering costs are excluded.
+
+### Mohalla (`Mohalla_GMV_Projection.xlsx`)
+
+| ID | Assumption | Bear | **Base** | Bull |
+|---|---|---:|---:|---:|
+| A1 | Device merchants in dense clusters that can run Mohalla | 20% | **30%** | 40% |
+| A2 | Covered eligible merchants who accept a partnership | 8% | **15%** | 25% |
+| A3 | New customers per participating merchant per month | 5 | **10** | 15 |
+| A4 | First-visit bill (offer minimum) | ₹250 | **₹300** | ₹350 |
+| A5 | New customers who become regulars | 10% | **20%** | 30% |
+| A6 | Regulars lost each quarter | 40% | **30%** | 20% |
+| A7 | Repeat spend per regular per quarter | ₹450 | **₹600** | ₹750 |
+| A8 | Paytm GMV per participating merchant per month, before Mohalla | ₹50,000 | **₹80,000** | ₹1,20,000 |
+| A9 | Share-of-counter shift (extra share of collections routed to Paytm) | 1% | **3%** | 5% |
+| A10 | Drop in annual device churn | 1 pt | **2 pts** | 4 pts |
+| A11 | Reward per redemption, merchant-funded | ₹25 | **₹30** | ₹40 |
+| A12 | Paytm fee per redemption | ₹3 | **₹4** | ₹5 |
+| A13 | Growth plan price per month | ₹29 | **₹49** | ₹79 |
+| A14 | Growth plan attach rate | 5% | **10%** | 20% |
+| A15 | Payment margin on incremental GMV | 4 bps | **4 bps** | 4 bps |
+| A16 | Device subscription revenue per retained merchant per month | ₹80 | **₹90** | ₹100 |
+| A17 | UPI payout cost per reward | ₹2 | **₹1** | ₹0.5 |
+| A18 | AI inference per participating merchant per month | ₹15 | **₹8** | ₹5 |
+| A19 | Extra inference per Growth plan merchant per month | ₹25 | **₹15** | ₹10 |
+| A20 | Reward spend Intent Guard blocks | 2% | **5%** | 8% |
+| A21 | Eligible clusters live, by quarter | 2% → 8% → 20% → 35% → 50% → 65% → 80% → 90% | | |
+
+**Built-in rules.** One reward per UPI ID per partnership; new regulars begin repeat spend the quarter after acquisition; merchants kept by lower churn keep their pre-Mohalla GMV and count as "protected", not in the North Star; rewards are merchant-funded and never Paytm revenue.
+
+## 4.12 Count and where to find each group
+
+| Group | Count | Section |
+|---|---:|---|
+| AI Munim model inputs (K, S, A, P, C, G, V, MV, MR) | 48 | 4.2, 4.3 |
+| Shared baseline assumptions | 10 | 4.8 |
+| Product-rule parameters | 24 | 4.9 |
+| Go-to-market and operating assumptions | 13 | 4.10 |
+| Restock + Care + Nearby model inputs | 65 | 4.11 |
+| Mohalla model inputs | 21 | 4.11 |
+| External facts relied on | 11 | 4.4 |
+| Plan assumptions added in this file | 9 | 4.5 |
+| Known tensions | 8 | 4.6 |
+
 
 ---
 
