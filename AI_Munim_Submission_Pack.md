@@ -84,8 +84,9 @@ Prepared 27 Oct 2026 · Working names: *AI Munim*, *Intent Guard*
 | Settlement reports (MDR, GST, UTR), downloadable and emailed | Shift-level checks; a books-ready pack | **Shift check**; **CA pack** | Outlets tab; More > CA pack |
 | Business loans through partners | Credit offered *at the gap*, with every matching offer shown | **Capital tab**: pre-approved lines, lowest APR first | Capital tab |
 | Soundbox, QR, card machine | Control over what staff and AI can do with money | **Intent Guard**: roles, limits, approved payees, evidence log | More > Your rules |
+| **Staff access across outlets: not a feature of the Paytm mobile app today** (team confirmed) | Cashier and manager logins with limits, one view across outlets | **Foundation, proposed for Paytm's web view** (we have no visibility of the web app today); the Munim reads from it | Web view (proposed); owner and cashier views on mobile |
 
-**Foundation we must build if the app doesn't have it:** staff roles with limits, an outlet view, shift close, device status. We mark these "hygiene, no AI" so we don't claim them as the pitch.
+**Foundation we propose (hygiene, no AI):** staff roles with limits, an outlet view, shift close, device status. Staff access across outlets is **not on the Paytm mobile app today**, so we propose it for Paytm's web view and treat it as a prerequisite, not the pitch. Because we cannot see the web app, every Foundation screen is a proposal, not a copy of an existing screen. Other providers already offer role-based staff access across stores (Pine Labs One, HDFC SmartHub Vyapar; see Appendix 1b), which is why we call it table stakes and keep the pitch on the AI layer.
 
 **Principle:** reuse what Paytm already has (collections, settlements, devices, lending partners); add only the layer that connects them. Bottom tab bar in our screens uses placeholders (Home, Outlets, Munim, Capital, More); we match them to the live app.
 
@@ -347,19 +348,37 @@ AI ₹11.6 cr · photo checks ₹5.9 cr · Account Aggregator data ₹4.1 cr · 
 | What exists today vs what you add? | Slide 4: Paytm already has payments, settlements, reports, loans and devices; we add outlet profit, the cash plan, shift checks and the mandate. |
 | What's built in 8 hours vs production? | The loop end to end on synthetic data with simulated lenders. Production needs Paytm Payments Services as FIU and real lenders. |
 | How is your team building it? | With AI agents under human gates and evals as the definition of done (slide 10). |
-| Who else does this? | Bookkeeping and accounting apps record entries; they don't see Paytm collections per outlet or bring consented bank data, forecasts and pre-approved credit together. *(Add named competitors after checking them.)* |
+| Who else does this? | Appendix 1b. PhonePe for Business, BharatPe, Google Pay for Business, Pine Labs and HDFC SmartHub Vyapar all offer payments, settlements, reports or loans, and two (Pine Labs One, SmartHub Vyapar) offer staff roles across stores. In the public material I found, none offers a per-outlet profit view across cash and other QRs, a 90-day cash plan, shift checks or a mandate for AI actions. That is a finding from public pages, not a proof. |
+
+## Appendix 1b · Named competitors (from public pages, checked 27 Oct 2026)
+
+Findings come from public search results, several dated or from third parties. **Confirm each in its live app before claiming "nobody offers X".**
+
+| Provider | What public sources show | Staff roles / multi-store | What we found no evidence of |
+|---|---|---|---|
+| **PhonePe for Business** | Payment gateway, store QR, Soundbox (SIM-enabled, 10+ languages), POS, payment links, dashboard for sales analytics and settlement tracking; a lending offering | Multi-outlet Soundbox deployment mentioned by an integrator; no staff-role details found | Per-outlet profit, cash planning, shift checks, a mandate for AI actions |
+| **BharatPe** | UPI-data-based working-capital loans (daily instalments), speaker alerts, instant settlement, insights, a dashboard for tracking customers who owe the merchant | Not found | Staff roles, multi-store view, accounting, cash planning |
+| **Google Pay for Business** | SoundPod (listing dates from 2024), business loans and credit lines through partner lenders (up to ₹8 lakh per a third-party listing) | Not found | Staff roles, outlet view, cash planning, 2026 confirmation of any of this |
+| **Pine Labs** | Pine Labs One management app and web dashboard (all transactions, payout reports for reconciliation, **role-based employee access across multiple stores**, device ticketing); myPlutus (insights, loan application); Smart POS with billing apps | **Yes (Pine Labs One)** | A forward-looking cash plan, per-outlet profit incl. cash and other QRs, shift checks |
+| **HDFC SmartHub Vyapar** | Payments across all stores in one view, **staff logins with roles (cashier, manager)**, downloadable transaction and settlement reports, business loans and overdraft; for HDFC Bank customers | **Yes** | Cash planning, profit per outlet, shift checks, AI mandate; account needed with HDFC |
+
+**What this means for the pitch**
+- Staff roles and a multi-store view are **table stakes** at two competitors; Paytm lacks them on mobile. They are the foundation (hygiene), not the headline.
+- The differentiators we can defend are: **forward-looking cash plan, profit per outlet across cash and other QRs, shift checks with bank confirmation, every matching credit offer shown, and the owner's mandate for AI actions.**
+- Paytm's own advantages: collections per outlet already inside Paytm, devices at the counter, and lending partners.
+- Biggest competitive risk: Pine Labs (POS plus multi-store management) and banks with owners' accounts (HDFC) moving up from reporting into planning.
 
 ## Appendix 2 · Checklist before submitting
 
 | # | Check | Why |
 |---|---|---|
-| 1 | Open the live Paytm for Business app and confirm which of these exist: multi-outlet view, staff roles with limits, shift close, device status, business loans (current limits) | Slide 4 is only credible if it matches the real app. I could not confirm multi-outlet or staff roles from public sources |
-| 2 | Confirm the submission format, slide cap and any required headings on the portal | Public pages did not show Mumbai Track 1 rules |
+| 1 | Open the live Paytm for Business app and confirm: device status, shift close, current business-loan limits. (Staff access across outlets is confirmed as **not** on the mobile app) | Slide 4 is only credible if it matches the real app. We have no visibility of Paytm's web view, where we propose staff access |
+| 2 | Paste the hackathon rules text so the pack can be checked against it (slide cap, headings, judging criteria). The rules page could not be fetched from this environment | The pack's structure follows your six-item list, not the page |
 | 3 | Confirm the credential line wording | Slide 1 |
 | 4 | Confirm partner and tool names before naming them (voice, workflow, memory tools) | Event partner list needs portal confirmation |
 | 5 | Re-read slide 11 and 12 aloud: attrition, referrals and fixed costs are called out | A judge who finds them first will discount the rest |
 | 6 | Wireframe gaps: voice expense logging, cost-rules entry, assumption editing | Slide 9 note |
-| 7 | Decide whether to add named competitors to the Q&A | Needs a quick check of each |
+| 7 | Verify the Appendix 1b competitor findings in each live app | Several sources were dated or third-party |
 | 8 | Check every figure against the Summary sheet of `AI_Munim_Projection.xlsx` | The Excel is the source of truth for numbers |
 
 ## Appendix 3 · Source map
