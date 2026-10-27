@@ -297,6 +297,8 @@ flowchart LR
 
 **Headline:** *Six screens that tell the story.* Low-fidelity, 360 × 800 mobile, in Paytm's visual language (Paytm Blue actions, navy headings). `(!)` needs attention · `(ok)` confirmed · `(mic)` voice.
 
+**Image versions of these screens (transparent PNGs for your slides) are in `wireframes/`:** `01_home.png`, `04_ask_diwali.png`, `05_cash_plan.png`, `06_capital_offers.png`, `07_intent_guard.png`, `08_shift_check.png`, plus ready-made strips `strip_diwali_loop.png` and `strip_shift_check.png`. Index: `wireframes/README.md`. The text layouts below show the same screens.
+
 ### 1 · Munim home: what happened, what needs attention
 
 ```
