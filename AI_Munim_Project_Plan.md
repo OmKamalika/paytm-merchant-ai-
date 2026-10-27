@@ -84,7 +84,7 @@ AI Munim is an AI assistant inside the **Paytm for Business app** (owner and sta
 - **Capital tab** (free to *every* merchant, member or not): pre-approved lines from lending partners offered at the cash gap; every matching offer shown, lowest APR first, each with its KFS; lenders that didn't match are named. The lender pays the supplier; the owner repays the lender by UPI AutoPay. Paytm never touches the money. Lenders pay Paytm 2% of each drawdown.
 - **Intent Guard** (the owner's mandate): roles and limits, approved suppliers and lenders, a credit cap (all EMIs ≤ 8% of average daily collections) and "always ask me" rules. Four checkpoints on every money action: rules as code → AI intent check (can only stop or escalate) → owner's PIN → hash-chained evidence pack. A red-team suite of 12 scripted attacks runs on every build; a build ships only at 12 of 12.
 
-**Foundation (no AI, built because the Munim needs it):** staff roles with maker-checker, an outlet view (collections, settlements, device status), a daily three-way match (Paytm settlements vs bank credits vs cash tally), and a monthly **CA pack**.
+**Foundation (no AI, built because the Munim needs it; staff access across outlets is not on the Paytm mobile app today, so we propose it for Paytm's web view, which we cannot see):** staff roles with maker-checker, an outlet view (collections, settlements, device status), a daily three-way match (Paytm settlements vs bank credits vs cash tally), and a monthly **CA pack**.
 
 **What it does not pretend to know.** One bank account and one GSTIN cover the whole business, and other QRs show up only as bank credits. So every number is labelled *exact* (Paytm, per outlet) or *estimated*. Handover totals are checked against the bank next morning, business-wide. Composition-scheme dealers (CMP-08) don't have GSTR-1/3B, so GST data is optional.
 
@@ -1119,7 +1119,7 @@ flowchart TD
 | B1 | **Map outlets** | W12 (Outlets) | Tag each Paytm QR, Soundbox and card machine to an outlet; add staff and roles | Proposes tags from device locations and settlement patterns | 5 min |
 | B2 | **Consent 1** | W2 | Approve on the AA app: bank statements for one account, GSTR-1/3B; purpose reporting (code 102); bank daily, GST monthly; valid 12 months | Shows the consent in plain words; fetches daily after approval. Skips GST for composition dealers | Two taps and an OTP |
 | B3 | **Mandate** | W3 | Set cashier/manager limits, approved suppliers (verified accounts), approved lenders, credit cap, what always needs the owner | Suggests defaults; explains each; voice input works | 5 min |
-| B4 | **Cost rules** | W9 (rules entry) | Confirm rent per outlet, salaries by roster, supplier bills by delivery outlet | Proposes rules from bank narrations; owner confirms | 5 min |
+| B4 | **Cost rules** | W18 | Confirm rent per outlet, salaries by roster, supplier bills by delivery outlet | Proposes rules from bank narrations; owner confirms | 5 min |
 | B5 | **Capital (optional)** | W6 / W13 | Consent 2 to each lender separately | Lenders run their own rules engines and return pre-approved lines | Two taps and an OTP per lender |
 
 *Failure points:* AA consent not completed (nudge after 1 day, then 3 days; works with uploaded statements in reduced mode, labelled as such); outlet tags missing (profit per outlet shows "needs outlet tags"); mandate skipped (default conservative limits apply and money actions need the owner).
@@ -1202,7 +1202,8 @@ sequenceDiagram
 ```mermaid
 flowchart TD
     A[Shift close due, Soundbox top display and cashier app] --> B[Count cash and enter]
-    B --> C[Enter other-QR totals from their apps, by tap or Soundbox voice]
+    B --> B2[Say or type cash expenses paid from the till, W17]
+    B2 --> C[Enter other-QR totals from their apps, by tap or Soundbox voice]
     C --> D[Photograph 2 high-value shelves in the Business app]
     D --> E[Hand over to next shift]
     E --> F[Munim compares: expected vs Paytm exact + other QRs + cash]
@@ -1228,6 +1229,20 @@ flowchart TD
 ```
 
 **Rules of the shift check:** ranges, not points; patterns over weeks, never a single shift; by shift, never by person; only the owner sees results; shelf photos blur faces; the cashier is told at onboarding what is collected.
+
+## 5.8b Flow K · Log cash expenses by voice
+
+| # | Step | Screen | What happens |
+|---|---|---|---|
+| K1 | **Start** | W17a | From Home (mic button), from the cashier's shift close, or from the Soundbox ("Aaj ka kharcha") |
+| K2 | **Speak** | W17a | Push-to-talk, one or several expenses in one sentence, in Hindi, English or Marathi |
+| K3 | **Understand** | W17b | The Munim extracts amount, category, outlet and payee; spoken numbers become digits |
+| K4 | **Ask only what is unclear** | W17b | Outlet chips if unclear; "till or my pocket?"; amounts never guessed |
+| K5 | **Control** | W17c | Owner and managers save directly; a cashier over the limit sends it to the owner |
+| K6 | **Save** | W17b | The line is saved, the expected cash for the shift updates, 10-minute undo |
+| K7 | **Feeds** | W8, W9, W5 | The shift check's expected cash, profit per outlet and the cash plan all use it |
+
+*Cost rules (set-up step B4) are the companion flow: the Munim proposes recurring costs from bank data and the owner confirms them (W18).*
 
 ## 5.9 Flow G · What Intent Guard does when something is wrong
 
@@ -1309,7 +1324,7 @@ stateDiagram-v2
 
 # PART 6 · Textual wireframes
 
-Seventeen screens on the Paytm for Business app (W-series, owner and manager) and the cashier / Soundbox (F-series). All are low-fidelity, 360 × 800 mobile, Android-first, in Paytm's visual language (Paytm Blue for actions and chips, navy for headings and app bar, white cards on a light grey ground; success green, warning amber, error red). Bottom tab bar: **Home · Outlets · Munim · Capital · More** (placeholders; match them to the live app). English copy; voice lines in Hindi in Latin script; lender names stay generic. W1-W11 and F1-F2 are carried over from the deck; **W0 and W12-W16 are new** in this file. The wireframes do not draw the Paytm logo or copy existing Paytm screens.
+Twenty-one screens on the Paytm for Business app (W-series, owner and manager) and the cashier / Soundbox (F-series). All are low-fidelity, 360 × 800 mobile, Android-first, in Paytm's visual language (Paytm Blue for actions and chips, navy for headings and app bar, white cards on a light grey ground; success green, warning amber, error red). Bottom tab bar: **Home · Outlets · Munim · Capital · More** (placeholders; match them to the live app). English copy; voice lines in Hindi in Latin script; lender names stay generic. W1-W11 and F1-F2 are carried over from the deck; **W0 and W12-W18 are new** in this file (W17 voice expense logging and W18 cost rules are described in 6.7 and 6.8, with the options we considered). The wireframes do not draw the Paytm logo or copy existing Paytm screens.
 
 Legend: `(<)` back · `(mic)` voice · `(!)` needs attention · `(ok)` confirmed · `[ ]` button · `█░` bar.
 
@@ -1336,7 +1351,13 @@ flowchart LR
     Consent1 --> Outlets
     Outlets --> Rules
     Cashier[F1 Cashier view] --> Shift
+    Cashier --> VoiceLog[W17 Log expenses by voice]
+    Home --> VoiceLog
+    VoiceLog --> Shift
+    Outlets --> Costs[W18 Your costs]
+    Costs --> Profit
     SB[F2 Soundbox shift close] --> Shift
+    SB --> VoiceLog
 ```
 
 | ID | Screen | Role | Flow | Key data |
@@ -1360,8 +1381,10 @@ flowchart LR
 | W15 | CA pack | Owner, CA | H | Charges, settlements, matches |
 | W11 | Your plan and receipt | Owner | A, I | Price, next charge, findings |
 | W16 | States: first day, low history, stale data | All | J | Degraded-state copy |
+| W17 | Log expenses by voice (listening, confirm, approval, Soundbox) | Owner, manager, cashier | F, K | Speech, extracted lines, till or pocket |
+| W18 | Your costs (found in bank data, shared costs, manual and voice, change review) | Owner | B, H | Recurring debits, roster, sales share |
 
-## 6.2 to 6.6 · The screens
+## 6.2 to 6.9 · The screens, and design notes for voice logging and cost rules
 
 **Reading the notes under each wireframe:** *Purpose · Data · Actions · States · Rules*. The notes are the build spec; the box is the layout.
 
@@ -1809,11 +1832,13 @@ flowchart LR
 │ [ Refund (up to ₹500) ]                  │
 │ [ Close my shift ]                       │
 ├──────────────────────────────────────────┤
-│ CLOSE SHIFT · 3 STEPS                    │
+│ CLOSE SHIFT · 4 STEPS                    │
 │ 1  Count cash                 ₹3,100     │
-│ 2  Other QRs (from their apps)           │
+│ 2  Cash expenses (say or type)  ₹650     │
+│    chai ₹400, auto ₹250     (mic) [Edit] │
+│ 3  Other QRs (from their apps)           │
 │    QR 2 ₹2,450 · QR 3 ₹1,180             │
-│ 3  Photograph 2 high-value shelves       │
+│ 4  Photograph 2 high-value shelves       │
 │    dry fruits, personal care   1 of 2    │
 │ [ Hand over to the next shift ]          │
 ├──────────────────────────────────────────┤
@@ -2086,6 +2111,291 @@ STALE BANK DATA
 **Purpose:** never show a confident number when the data isn't there.
 **Rules:** every degraded state says what is missing, what is still reliable, and what to do. No blank screens.
 
+## 6.7 · Voice expense logging (brainstorm, then wireframes)
+
+### The job
+
+Cash expenses (chai, transport, repairs, staff advances, a cash payment to a supplier) never reach the bank or Paytm, so **profit per outlet is wrong without them**. They also set **the cash the shift check expects**: cash in the till is cash sales minus cash paid out. If expenses are missing, the shift check raises false alarms, which is one of our own guardrails (≤ 1 in 5 dismissed). So voice logging belongs inside shift close, not in a corner of the app.
+
+### Options considered
+
+| Option | How it works | Good | Weak |
+|---|---|---|---|
+| **A · Quick log** | Mic button on Home. Say "Sion, chai-paani, 400." Confirm | Anytime, about 5 seconds | Easy to forget |
+| **B · In the Munim chat** | The same sentence in the conversation | No new screen | Buried; relies on a habit |
+| **C · At shift close** | On the Soundbox or in the app: "Aaj ka kharcha." One utterance, several items, parsed into a list | Matches the moment cash is counted; fixes the expected-cash figure | Needs a prompt; longer speech |
+
+**Recommendation:** C is the main path, A is the shortcut, B is for corrections.
+
+### Design rules
+
+- **Always confirm before saving.** The screen shows what was heard, in the owner's language, as editable lines.
+- **Amounts and outlets are never guessed.** If the outlet or amount is unclear, ask with chips.
+- **Short fixed category list** (8), the AI proposes one: Chai and refreshments · Transport and delivery · Repairs · Utilities · Staff advance or allowance · Supplies and packaging · Cash paid to a supplier · Other.
+- **Who can log:** the owner and managers freely. A cashier can log for their own outlet up to a limit (proposed default ₹1,000 per entry and ₹3,000 a day); above that, the entry waits for the owner (maker-checker, as for refunds). **[proposed default; open decision 1]**
+- **Push-to-talk only.** No always-listening mode, consistent with the Soundbox rule.
+- **Optional bill photo**; **offline:** save on the device and sync later.
+- **Cash paid to a supplier** is logged against the supplier so the cash plan and the supplier list stay consistent.
+- **Numbers in Hindi and Marathi** ("saadhe teen sau", "dhai hazaar") must parse correctly; amounts are shown back as digits.
+
+### W17a · Log expenses by voice: listening (from Home, or at shift close)
+
+```
+┌──────────────────────────────────────────┐
+│ (<)  Log expenses · Sion                 │
+├──────────────────────────────────────────┤
+│                                          │
+│              (mic, pulsing)              │
+│       "Boliye..." Hold to speak          │
+│                                          │
+│ Say it like you'd tell a munim:          │
+│ what, how much, which outlet.            │
+│ You can say several at once.             │
+│                                          │
+│ e.g. "Chai-paani 400, auto 250,          │
+│ bijli ka bill 1,800 Dadar ka"            │
+├──────────────────────────────────────────┤
+│ [ Type instead ]       [ Scan a bill ]   │
+└──────────────────────────────────────────┘
+```
+
+**Purpose:** capture cash expenses in seconds, in the owner's or cashier's own language.
+**Data:** speech-to-text of one push-to-talk utterance; the user's outlet and role.
+**Actions:** hold to speak; type instead; scan a bill photo.
+**States:** listening; no speech heard (prompt again); noisy counter (ask to repeat, then offer typing); offline (saved on the device).
+**Rules:** push-to-talk only; the cashier's screen shows their own outlet; nothing is saved until confirmed.
+
+### W17b · Check what I heard (confirm before saving)
+
+```
+┌──────────────────────────────────────────┐
+│ (<)  Check what I heard                  │
+│ "Chai-paani 400, auto 250, bijli ka      │
+│  bill 1,800"                             │
+├──────────────────────────────────────────┤
+│ Chai-paani      ₹400    Sion     [edit]  │
+│ Transport       ₹250    Sion     [edit]  │
+│ Electricity     ₹1,800  (!) which outlet?│
+│    [Dadar] [Matunga] [Sion] [Split]      │
+├──────────────────────────────────────────┤
+│ Total ₹2,450 paid from cash              │
+│ Paid from the till, or from your pocket? │
+│    (•) Till     ( ) My pocket            │
+├──────────────────────────────────────────┤
+│ Cash the shift check expects             │
+│ goes from ₹14,200 to ₹11,750             │
+├──────────────────────────────────────────┤
+│ [ Save ]            [ Say it again ]     │
+└──────────────────────────────────────────┘
+```
+
+**Purpose:** let the person see and fix what the AI understood before it affects profit or the shift check.
+**Data:** structured extraction (amount, category, outlet, payee, paid-from) with a confidence per line; a preview of the effect on expected cash.
+**Actions:** edit a line; choose an outlet; split across outlets; till or pocket; save; re-record.
+**States:** every line clear (Save is the primary button); a line unclear (highlighted amber and Save stays disabled until fixed); cashier over the limit (line shows "Needs the owner" and goes to the owner for approval).
+**Rules:** amounts and outlets are never guessed; the "till or pocket" question matters because only till cash changes the expected cash; a rupee figure that is not clearly heard is asked about, never filled in.
+
+### W17c · Needs the owner (cashier over the limit) and saved states
+
+```
+CASHIER                                   OWNER
+┌─────────────────────────────┐          ┌─────────────────────────────┐
+│ Repairs   ₹4,500   Sion     │          │ (!) Approval needed         │
+│ Over your limit (₹1,000).   │          │ Sion · Repairs · ₹4,500     │
+│ Sent to the owner.          │          │ Logged by Anil, 4:12 pm     │
+│ [ Close ]                   │          │ [ Approve ]  [ Ask why ]    │
+└─────────────────────────────┘          └─────────────────────────────┘
+
+SAVED
+┌──────────────────────────────────────────┐
+│ (ok) Saved: 3 expenses, ₹2,450 · Sion    │
+│ Undo for 10 minutes     [ Undo ]         │
+└──────────────────────────────────────────┘
+```
+
+**Purpose:** keep small expenses frictionless and larger ones controlled, with a quick undo.
+**Rules:** limits are set in the owner's mandate (W3); approvals show who logged what and when; everything is in the evidence log.
+
+### W17d · At shift close (Soundbox variant)
+
+```
+        ┌────────────────────────────────┐
+        │ TOP DISPLAY                    │
+        │ Shift close · step 2 of 4      │
+        └────────────────────────────────┘
+┌──────────────────────────────────────────┐
+│ FRONT SCREEN                             │
+│ Aaj ka kharcha? Hold the button.         │
+│ (mic) "Chai 400, auto 250"               │
+├──────────────────────────────────────────┤
+│ Heard: Chai ₹400 · Auto ₹250             │
+│ Total ₹650 from the till   [ Yes ] [ No ]│
+├──────────────────────────────────────────┤
+│ (speaker) Hindi: "Chhe sau pachaas ka    │
+│ kharcha. Theek hai?"                     │
+└──────────────────────────────────────────┘
+```
+
+**Purpose:** record the day's expenses at the same moment as the cash count (shift close becomes: count cash → other QRs → **expenses** → shelf photos).
+**Rules:** same limits and confirmation as the app; the Soundbox repeats amounts aloud so a mishearing is caught.
+
+### Evals for this feature
+
+| Check | Threshold **[proposed]** |
+|---|---|
+| Correct amount on 200 Hindi, English and Marathi utterances (including spoken numbers) | ≥ 95% |
+| Correct category | ≥ 90% |
+| Outlet resolved or asked, never guessed | 100% |
+| Expense edits needed before save | Tracked; used to improve prompts |
+
+## 6.8 · Cost rules (brainstorm, then wireframes)
+
+### The job
+
+Turn "rent is one bank debit" into "rent per outlet", and decide how shared costs are split. Owners hate forms, so the AI should **propose and the owner confirms**.
+
+### Options considered
+
+| Option | How it works | Good | Weak |
+|---|---|---|---|
+| **A · Found in your bank data** | "We found 4 recurring payments. Confirm what each is and which outlet" | Almost no typing; shows the AI's value | Needs the bank consent first |
+| **B · Manual form** | Rent, salary and bills per outlet | Works without consent | Slow; owners skip it |
+| **C · Voice** | "Dadar ka kiraya 45,000, 5 tareekh" | Fast | Shared costs are hard to say |
+
+**Recommendation:** A first, C for edits, B as the fallback when there is no bank data.
+
+### Design rules
+
+- **The AI proposes, the owner confirms.** Confirmed rules carry a "your rules" label in W9.
+- **Preview the effect:** "With this, Sion's October profit is −₹6,200", so the owner sees why it matters.
+- **One-tap default for shared costs** (split by sales share), with the other splits behind it: equal, by outlet area, or custom percentages.
+- **Review prompts** when a recurring payment changes (rent goes up, a new salary appears, a supplier moves outlets).
+- **Owner's own pay is a rule** because it changes whether an outlet "makes money". **Default: leave it out of profit per outlet, with a switch to include it.** **[proposed default; open decision 2]**
+- **Salaries by roster:** match bank transfers to the staff list added in W12.
+
+### W18a · Your costs: confirm what we found
+
+```
+┌──────────────────────────────────────────┐
+│ (<)  Your costs · 4 of 6 confirmed       │
+├──────────────────────────────────────────┤
+│ FOUND IN YOUR BANK DATA                  │
+│ ₹30,000 on the 5th to "R K Estates"      │
+│ Looks like: Rent                         │
+│ Which outlet?  [Dadar] [Matunga] [Sion]  │
+│ [ Yes, that's right ]  [ Not rent ]      │
+├──────────────────────────────────────────┤
+│ ₹1,05,000 on the 1st, 7 transfers        │
+│ Looks like: Salaries, matched to staff   │
+│ [ Confirm by outlet ]                    │
+├──────────────────────────────────────────┤
+│ ₹1,50,000 on the 1st to Mehta Dry Fruits │
+│ Looks like: Supplier · delivered to      │
+│ [Dadar] [Matunga] [Sion]                 │
+├──────────────────────────────────────────┤
+│ WHAT THIS CHANGES                        │
+│ Sion's October profit: −₹6,200           │
+│ (mic) "Dadar ka kiraya 45,000 karo"      │
+│ [ Save costs ]                           │
+└──────────────────────────────────────────┘
+```
+
+**Purpose:** convert business-wide bank debits into per-outlet costs with minimal effort.
+**Data:** recurring debits found in bank statements (Account Aggregator); staff roster; supplier list.
+**Actions:** confirm a proposal; pick an outlet; mark "not this"; edit by voice; save.
+**States:** no bank data yet (shows the manual and voice paths, W18c); everything confirmed ("All costs set. We'll ask if anything changes"); a proposal the AI is unsure about is shown last, labelled "not sure".
+**Rules:** nothing is assumed silently; every confirmed rule is stored with who confirmed it and when.
+
+### W18b · Shared costs: how to split one bill
+
+```
+┌──────────────────────────────────────────┐
+│ (<)  Shared costs                        │
+├──────────────────────────────────────────┤
+│ Electricity (one bill)          ₹5,400   │
+│ Split by:                                │
+│   (•) Sales   ( ) Equal   ( ) Custom     │
+│ Dadar 45% ₹2,430 · Matunga 30% ₹1,620    │
+│ Sion 25% ₹1,350                          │
+├──────────────────────────────────────────┤
+│ Accountant (CA fee)             ₹3,000   │
+│ Split by:                                │
+│   ( ) Sales   (•) Equal   ( ) Custom     │
+│ ₹1,000 each                              │
+├──────────────────────────────────────────┤
+│ Your own pay                    ₹0       │
+│ Leave out of outlet profit  [on]         │
+│ (switch on to include it)                │
+├──────────────────────────────────────────┤
+│ [ Save ]                                 │
+└──────────────────────────────────────────┘
+```
+
+**Purpose:** let the owner decide how bills that serve every outlet are shared, in one tap per bill.
+**Data:** shared costs flagged from bank debits; sales share by outlet from Paytm collections and handover totals.
+**Actions:** choose split; set custom percentages; include or leave out the owner's own pay.
+**Rules:** the default split is by sales share; custom percentages must sum to 100%; shared costs and their splits are labelled "your rules" in W9.
+
+### W18c · No bank data yet: say it, or type it
+
+```
+┌──────────────────────────────────────────┐
+│ (<)  Your costs                          │
+│ Without bank data, tell us the main ones.│
+├──────────────────────────────────────────┤
+│ (mic) Hold and say, e.g.                 │
+│ "Dadar ka kiraya 45,000, 5 tareekh.      │
+│  Matunga 30,000. Sion 32,000."           │
+├──────────────────────────────────────────┤
+│ OR FILL IN                               │
+│ Rent                Dadar  ₹ [        ]  │
+│                     Matunga ₹ [       ]  │
+│                     Sion   ₹ [        ]  │
+│ Salaries            by roster       [ ]  │
+│ Electricity         shared          [ ]  │
+├──────────────────────────────────────────┤
+│ [ Connect bank data instead ]            │
+└──────────────────────────────────────────┘
+```
+
+**Purpose:** a fallback so the profit view works before the bank consent, clearly labelled as owner-entered.
+**Rules:** every number from this path is labelled "your rules" and cannot be called "bank-checked".
+
+### W18d · A cost changed: review
+
+```
+┌──────────────────────────────────────────┐
+│ (!) Rent at Sion changed                 │
+│ ₹32,000 → ₹36,000 on the 5th             │
+│ Update your cost rule?                   │
+│ October profit for Sion: −₹6,200 →       │
+│ −₹10,200 from now on                     │
+│ [ Yes, update ]  [ One-off ]  [ Ignore ] │
+└──────────────────────────────────────────┘
+```
+
+**Purpose:** keep profit per outlet current without making the owner re-enter anything.
+**Rules:** changes never apply silently; the owner chooses permanent, one-off or ignore.
+
+### Evals for this feature
+
+| Check | Threshold **[proposed]** |
+|---|---|
+| Recurring payments correctly identified in 500 labelled bank lines | ≥ 95% |
+| Category proposal accepted without edit | ≥ 80% (tracked) |
+| Staff salary transfers matched to the roster | ≥ 90% |
+| No cost rule applied without owner confirmation | 100% |
+
+## 6.9 · Open decisions for these two features
+
+| # | Decision | Proposed default | Effect |
+|---|---|---|---|
+| 1 | Can cashiers log expenses? | Yes, for their own outlet, up to ₹1,000 per entry and ₹3,000 a day, above that needs the owner | Better shift-check accuracy, with control |
+| 2 | Is the owner's own pay in profit per outlet? | Left out by default, with a switch | Avoids an outlet looking like it loses money because of the owner's pay |
+| 3 | Is Marathi in scope for the first demo? | Hindi and English for the demo; Marathi for the pilot | Speech and parsing evals cover three languages in the pilot |
+| 4 | Full slides or appendix screens in the pitch? | Appendix screens (W17b and W18a), because the main deck is slide-limited by the seven required items | The deck stays on the AI and the business case |
+
+
 ---
 
 # PART 7 · Open items and sources
@@ -2103,6 +2413,7 @@ STALE BANK DATA
 | 7 | Confirm no overlapping Paytm roadmap for outlet P&L / cash plan | Product leadership | 6 Nov 2026 | Avoid duplicate build |
 | 8 | Like-for-like restatement of Option B's contribution (without avoided costs) | Finance | Before any funding decision | Fair comparison |
 | 9 | Re-base Q4 FY27 and Q1 FY28 for a Mumbai-only pilot | Analytics | After Gate 1 | See 3.5 and 4.6 |
+| 12 | Decide the four open points for voice logging and cost rules (cashier logging, owner's own pay, Marathi in the demo, appendix vs full slides) | Team | Before building screens | See 6.9 |
 | 11 | Calibrate pod throughput after bolt 3 (about 8 Dec 2026) and re-estimate effort for the Munim and for the other two features | Product owner | 8 Dec 2026 | AI-DLC effort figures are plan assumptions |
 | 10 | Confirm partner and tool names (voice, workflow, memory) before naming them on slides | Team | Before submission | Event partner list needs portal confirmation |
 

@@ -3,24 +3,40 @@
 **Paytm Build for India AI Hackathon · Track 1: Merchant Growth AI · Kamalika Poddar**
 Prepared 27 Oct 2026 · Working names: *AI Munim*, *Intent Guard*
 
-> **What this is.** The content for the presentation we submit to Paytm, in the order the submission asks for it: **track → product → solution → feature → business model → tech stack**, plus the user flow, screens and projections. It is a *proposal layered on the real Paytm for Business app*, not a plan for what Paytm will ship. It condenses `AI_Munim_Deck_Content.md` (the long version), `AI_Munim_Projection.xlsx` (unchanged) and `AI_Munim_Project_Plan.md` (internal detail: all assumptions, 19 wireframes, flows). Every number below is from those files.
+> **What this is.** The content for the presentation we submit to Paytm, built around the seven items the hackathon rules require (title, problem, proposed solution, tech stack, USP, impact and benefits, business model), plus the user flow, screens and projections. It is a *proposal layered on the real Paytm for Business app*, not a plan for what Paytm will ship. It condenses `AI_Munim_Deck_Content.md` (the long version), `AI_Munim_Projection.xlsx` (unchanged) and `AI_Munim_Project_Plan.md` (internal detail: all assumptions, 19 wireframes, flows). Every number below is from those files.
 >
 > **Two honest flags that run through the pack.** (1) The Excel projection assumes no member attrition and no referrals; slide 11 says so and shows the direction. (2) What the live Paytm for Business app already does (multi-outlet view, staff roles) must be checked in the app before we submit; see the checklist at the end.
 
-## Where each requirement lives
+## The submission rules, and the order to present in
 
-| What the submission asks for | Slide |
-|---|---|
-| The track we've taken | 1, 2, 3 |
-| The product | 4, 5 |
-| The solution | 5, 6, 7, 8 |
-| The feature we're giving | 6, 9 |
-| The business model | 11 |
-| The tech stack (and how we build it) | 10 |
-| Impact and projections | 12 |
-| Roadmap and the ask | 13 |
+**Stage 1 deadline: 27 Oct 2026, 11:59 PM** (upload the PPT in the form on the hackathon page). The rules require the deck to include these seven items, for the track we selected (**Track 1: Merchant Growth AI**, "Build the AI business partner for every Paytm merchant"):
 
-**If the portal caps slides at 10:** merge 1+2, merge 7+8, move 13 into 12, and put 9 in the appendix. Slides 3, 4, 10, 11, 12 are the ones that win or lose.
+| Required by the rules | Where it is in this pack | Final-deck slide |
+|---|---|---|
+| Title Slide | Slide 1 | 1 |
+| Problem Statement | Slide 2 (and 3, optional) | 2 (3) |
+| Proposed Solution | Slides 4, 5, 6, 7, 8 | 4, 5, 6 |
+| Technology / Tech Stack Used | Slide 10 | 7 |
+| USP (Unique Selling Proposition) | **Slide 14 (new)** | 8 |
+| Impact & Benefits | **Slide 15 (new)**, with projections from Slide 12 | 9 |
+| Business Model | Slide 11 | 10 |
+
+**Recommended final deck (11 slides, no slide cap is stated in the rules):**
+1. Title and track (pack slide 1)
+2. Problem (pack slide 2)
+3. Four paths assessed, one chosen (pack slide 3) *(optional; drop first if you want 10)*
+4. Layered on reality, and the product (pack slides 4 + 5)
+5. Features and the AI inside each, plus the user flow (pack slides 6 + 7)
+6. Intent Guard (pack slide 8)
+7. Tech stack and how we build with AI (pack slide 10)
+8. USP (pack slide 14)
+9. Impact & benefits, with the 8-quarter projection (pack slides 15 + 12)
+10. Business model (pack slide 11)
+11. Roadmap and the ask (pack slide 13)
+
+**Appendix (links or backup, not in the main flow):** screens (pack slide 9), competitors (Appendix 1b), judge Q&A (Appendix 1).
+
+**Track 1 asks for solutions that help merchants "grow their business, manage operations, and serve customers better", scalable to "millions of merchants".** We cover growth (sales lift, credit at the gap) and operations (profit, cash, shift control) strongly. "Serve customers better" is our thinnest area: it shows up only indirectly (stock ready before peaks, fewer stock-outs). Say that openly if asked, and note that the product is open to every Paytm merchant, from one shop to a chain.
 
 ---
 
@@ -84,8 +100,9 @@ Prepared 27 Oct 2026 · Working names: *AI Munim*, *Intent Guard*
 | Settlement reports (MDR, GST, UTR), downloadable and emailed | Shift-level checks; a books-ready pack | **Shift check**; **CA pack** | Outlets tab; More > CA pack |
 | Business loans through partners | Credit offered *at the gap*, with every matching offer shown | **Capital tab**: pre-approved lines, lowest APR first | Capital tab |
 | Soundbox, QR, card machine | Control over what staff and AI can do with money | **Intent Guard**: roles, limits, approved payees, evidence log | More > Your rules |
+| **Staff access across outlets: not a feature of the Paytm mobile app today** (team confirmed) | Cashier and manager logins with limits, one view across outlets | **Foundation, proposed for Paytm's web view** (we have no visibility of the web app today); the Munim reads from it | Web view (proposed); owner and cashier views on mobile |
 
-**Foundation we must build if the app doesn't have it:** staff roles with limits, an outlet view, shift close, device status. We mark these "hygiene, no AI" so we don't claim them as the pitch.
+**Foundation we propose (hygiene, no AI):** staff roles with limits, an outlet view, shift close, device status. Staff access across outlets is **not on the Paytm mobile app today**, so we propose it for Paytm's web view and treat it as a prerequisite, not the pitch. Because we cannot see the web app, every Foundation screen is a proposal, not a copy of an existing screen. Other providers already offer role-based staff access across stores (Pine Labs One, HDFC SmartHub Vyapar; see Appendix 1b), which is why we call it table stakes and keep the pitch on the AI layer.
 
 **Principle:** reuse what Paytm already has (collections, settlements, devices, lending partners); add only the layer that connects them. Bottom tab bar in our screens uses placeholders (Home, Outlets, Munim, Capital, More); we match them to the live app.
 
@@ -195,7 +212,7 @@ flowchart LR
 **Plus for the appendix:** W9 profit by outlet · W10 evidence log · W11 plan and monthly receipt · F1 cashier view · F2 Soundbox shift close.
 **Design rule:** English UI copy for the pitch; voice lines in Hindi; no Paytm logo drawn, official assets dropped in later.
 
-*Gaps to close before building screens:* the voice expense-logging screen, a cost-rules entry screen and the "change assumption" screen are not wireframed yet.
+*Also designed (appendix candidates):* **W17b, voice expense logging** (the owner or cashier says "chai 400, auto 250", the Munim lists what it heard, asks only what is unclear, and updates the shift check's expected cash) and **W18a, cost rules** (the Munim finds recurring payments in bank data and the owner confirms rent, salaries and shared costs per outlet). Full wireframes and options considered: `AI_Munim_Project_Plan.md`, Part 6 (6.7 and 6.8). *Still not wireframed:* the "change assumption" screen.
 
 ---
 
@@ -330,6 +347,47 @@ AI ₹11.6 cr · photo checks ₹5.9 cr · Account Aggregator data ₹4.1 cr · 
 
 ---
 
+## Slide 14 · USP (Unique Selling Proposition)
+
+**Headline:** *Paytm already holds what a munim needs. We connect it, and let AI act inside the owner's limits.*
+
+**Three things only Paytm has in one place**
+1. **Every outlet's Paytm collections,** exact, per QR and Soundbox.
+2. **A regulated route to the rest of the business:** bank statements and GST returns through the Account Aggregator (Paytm Payments Services as the FIU, a proposal to confirm).
+3. **Lending partners who can pre-approve credit** using their own rules engines.
+
+**What makes it different** (from public pages for PhonePe for Business, BharatPe, Google Pay for Business, Pine Labs and HDFC SmartHub Vyapar, which I did not verify inside their apps)
+
+| USP | Why it matters |
+|---|---|
+| **Profit per outlet across Paytm, other QRs, cash and costs,** with exact vs estimated labels | Owners with several outlets can't see which one carries the others; reports look at payments only |
+| **A 90-day cash plan** with the festival calendar, gaps flagged weeks ahead | Reports look back; owners need to look forward |
+| **Shift check:** expected vs collected, confirmed by next-day bank data, patterns by shift, never by person | Cash, stock and other QRs change hands twice a day with no record |
+| **Credit at the gap:** pre-approved lines, every matching offer shown lowest APR first, free to the merchant, lender pays the supplier | Credit arrives before the shortfall, not after; consistent with RBI's digital lending rules |
+| **Intent Guard:** the AI acts only inside the owner's mandate, can never approve a payment, and every action leaves a tamper-evident record; 12 of 12 red-team attacks blocked or escalated | The trust layer that makes AI that moves money safe to sell, and the base for agentic commerce |
+| **Voice-first, in Hindi, English and Marathi,** on the phone and the AI Soundbox | Owners talk, they don't fill forms |
+
+**One line:** *Others show owners what happened. The Munim tells them what will happen, what to do, and does it only within their limits.*
+
+---
+
+## Slide 15 · Impact and benefits
+
+**Headline:** *The merchant gains more than the fee. Paytm earns from a product merchants choose to pay for.*
+
+| For | Benefit (base case, estimates a pilot would test) |
+|---|---|
+| **Owner of 2-5 outlets** | **₹2,271 net gain per outlet per month** (₹1,750 leakage recovered + ₹700 extra margin from stock ready before peaks − ₹179 fees), 13.7× the fees. Credit before the gap, at the lowest APR on offer |
+| **Single shop** | ₹201 a month net from the cash plan alone (thin, so we assume only 1 in 100 pay) |
+| **Paytm** | ₹79.0 crore of contribution over 8 quarters at a 59% margin; ₹19.8 crore a quarter by Q3 FY29 (9.7% of Q1 FY27 EBITDA); ₹2,382 crore of new GMV; ₹2,720 crore of credit through partners, nothing on Paytm's books; devices kept longer |
+| **Lenders** | Lines underwritten on their own consented data; repayment sized to collections; an evidence pack showing where the money went |
+| **Staff and the CA** | Clear roles and limits; checks that look at shifts, not people; a monthly pack for the CA |
+| **Scale** | Open to every Paytm merchant (1.57 crore pay for a device). Base case: 2.11 lakh paying businesses, 3.62 lakh outlets by Q3 FY29 |
+
+**Say plainly:** this is a contribution play, not a GMV play (₹2,382 crore is 0.03% of Paytm's baseline GMV). The projections assume no member attrition and no referrals; see slide 11. Use the table on slide 12 for the 8-quarter numbers.
+
+---
+
 ## Appendix 1 · Likely judge questions
 
 | Question | Answer |
@@ -347,19 +405,37 @@ AI ₹11.6 cr · photo checks ₹5.9 cr · Account Aggregator data ₹4.1 cr · 
 | What exists today vs what you add? | Slide 4: Paytm already has payments, settlements, reports, loans and devices; we add outlet profit, the cash plan, shift checks and the mandate. |
 | What's built in 8 hours vs production? | The loop end to end on synthetic data with simulated lenders. Production needs Paytm Payments Services as FIU and real lenders. |
 | How is your team building it? | With AI agents under human gates and evals as the definition of done (slide 10). |
-| Who else does this? | Bookkeeping and accounting apps record entries; they don't see Paytm collections per outlet or bring consented bank data, forecasts and pre-approved credit together. *(Add named competitors after checking them.)* |
+| Who else does this? | Appendix 1b. PhonePe for Business, BharatPe, Google Pay for Business, Pine Labs and HDFC SmartHub Vyapar all offer payments, settlements, reports or loans, and two (Pine Labs One, SmartHub Vyapar) offer staff roles across stores. In the public material I found, none offers a per-outlet profit view across cash and other QRs, a 90-day cash plan, shift checks or a mandate for AI actions. That is a finding from public pages, not a proof. |
+
+## Appendix 1b · Named competitors (from public pages, checked 27 Oct 2026)
+
+Findings come from public search results, several dated or from third parties. **Confirm each in its live app before claiming "nobody offers X".**
+
+| Provider | What public sources show | Staff roles / multi-store | What we found no evidence of |
+|---|---|---|---|
+| **PhonePe for Business** | Payment gateway, store QR, Soundbox (SIM-enabled, 10+ languages), POS, payment links, dashboard for sales analytics and settlement tracking; a lending offering | Multi-outlet Soundbox deployment mentioned by an integrator; no staff-role details found | Per-outlet profit, cash planning, shift checks, a mandate for AI actions |
+| **BharatPe** | UPI-data-based working-capital loans (daily instalments), speaker alerts, instant settlement, insights, a dashboard for tracking customers who owe the merchant | Not found | Staff roles, multi-store view, accounting, cash planning |
+| **Google Pay for Business** | SoundPod (listing dates from 2024), business loans and credit lines through partner lenders (up to ₹8 lakh per a third-party listing) | Not found | Staff roles, outlet view, cash planning, 2026 confirmation of any of this |
+| **Pine Labs** | Pine Labs One management app and web dashboard (all transactions, payout reports for reconciliation, **role-based employee access across multiple stores**, device ticketing); myPlutus (insights, loan application); Smart POS with billing apps | **Yes (Pine Labs One)** | A forward-looking cash plan, per-outlet profit incl. cash and other QRs, shift checks |
+| **HDFC SmartHub Vyapar** | Payments across all stores in one view, **staff logins with roles (cashier, manager)**, downloadable transaction and settlement reports, business loans and overdraft; for HDFC Bank customers | **Yes** | Cash planning, profit per outlet, shift checks, AI mandate; account needed with HDFC |
+
+**What this means for the pitch**
+- Staff roles and a multi-store view are **table stakes** at two competitors; Paytm lacks them on mobile. They are the foundation (hygiene), not the headline.
+- The differentiators we can defend are: **forward-looking cash plan, profit per outlet across cash and other QRs, shift checks with bank confirmation, every matching credit offer shown, and the owner's mandate for AI actions.**
+- Paytm's own advantages: collections per outlet already inside Paytm, devices at the counter, and lending partners.
+- Biggest competitive risk: Pine Labs (POS plus multi-store management) and banks with owners' accounts (HDFC) moving up from reporting into planning.
 
 ## Appendix 2 · Checklist before submitting
 
 | # | Check | Why |
 |---|---|---|
-| 1 | Open the live Paytm for Business app and confirm which of these exist: multi-outlet view, staff roles with limits, shift close, device status, business loans (current limits) | Slide 4 is only credible if it matches the real app. I could not confirm multi-outlet or staff roles from public sources |
-| 2 | Confirm the submission format, slide cap and any required headings on the portal | Public pages did not show Mumbai Track 1 rules |
+| 1 | Open the live Paytm for Business app and confirm: device status, shift close, current business-loan limits. (Staff access across outlets is confirmed as **not** on the mobile app) | Slide 4 is only credible if it matches the real app. We have no visibility of Paytm's web view, where we propose staff access |
+| 2 | **Upload the PPT before 11:59 PM on 27 Oct 2026** with the seven required items (title, problem, proposed solution, tech stack, USP, impact and benefits, business model). Judging criteria will only be shared with shortlisted teams | Deadline in the rules you pasted |
 | 3 | Confirm the credential line wording | Slide 1 |
 | 4 | Confirm partner and tool names before naming them (voice, workflow, memory tools) | Event partner list needs portal confirmation |
 | 5 | Re-read slide 11 and 12 aloud: attrition, referrals and fixed costs are called out | A judge who finds them first will discount the rest |
-| 6 | Wireframe gaps: voice expense logging, cost-rules entry, assumption editing | Slide 9 note |
-| 7 | Decide whether to add named competitors to the Q&A | Needs a quick check of each |
+| 6 | Wireframe gap: assumption editing ("Change this" on the cash plan). Voice expense logging and cost rules are now wireframed; four open decisions are in the plan, 6.9 | Slide 9 note |
+| 7 | Verify the Appendix 1b competitor findings in each live app | Several sources were dated or third-party |
 | 8 | Check every figure against the Summary sheet of `AI_Munim_Projection.xlsx` | The Excel is the source of truth for numbers |
 
 ## Appendix 3 · Source map
